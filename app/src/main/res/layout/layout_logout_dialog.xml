@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Signout"
+        android:gravity="center"
+        android:padding="20dp"
+        android:fontFamily="@font/monsterrat"
+        android:id="@+id/text_cancel"
+        android:textStyle="bold"
+
+        android:drawableTint="@color/white"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Are you sure, you want to signout"
+        android:gravity="center"
+        android:fontFamily="@font/monsterrat"
+        android:lineSpacingExtra="5dp"
+        android:padding="20dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:text="No"
+            android:id="@+id/text_no"
+            android:fontFamily="@font/monsterrat"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@drawable/rounded_cornered_edittext_color_white"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:id="@+id/text_yes"
+            android:text="Yes"
+            android:fontFamily="@font/monsterrat"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@drawable/rounded_cornered_edittext_color"/>
+    </LinearLayout>
+
+</LinearLayout>

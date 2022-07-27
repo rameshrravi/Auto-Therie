@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_easy_car_theries"
+            android:icon="@drawable/easy_theory"
+            android:title="Teorie delle auto facili" />
+        <item
+            android:id="@+id/nav_learning"
+            android:icon="@drawable/learning"
+            android:title="Apprendimento" />
+        <item
+            android:id="@+id/nav_exam"
+            android:icon="@drawable/exam_icon"
+            android:title="Esame" />
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/rate"
+            android:title="Valuta App" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/share"
+            android:title="Condividere" />
+        <item
+            android:id="@+id/nav_language"
+            android:icon="@drawable/language"
+            android:title="Lingua" />
+        <item
+            android:id="@+id/nav_reset"
+            android:icon="@drawable/reset"
+            android:title="Ripristina" />
+    </group>
+</menu>

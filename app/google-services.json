@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "215878329389",
+    "project_id": "auto-therie-neu",
+    "storage_bucket": "auto-therie-neu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215878329389:android:3f652131efec4f1c23c4a4",
+        "android_client_info": {
+          "package_name": "com.auto.autotherieneu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215878329389-1lt0h60ld8ogvfnbg6aqcoh2m8n3oiru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAedS1_CsfNCZlIkYY_2OMamez1gssFA1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "215878329389-1lt0h60ld8ogvfnbg6aqcoh2m8n3oiru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

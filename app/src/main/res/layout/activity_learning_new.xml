@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LearningNewActivity"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp"
+        android:background="@color/logoColor"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="backPressed"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/monsterrat"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="Learning"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:background="#164282"
+        android:fontFamily="@font/monsterrat"
+        android:textSize="18sp"
+        android:id="@+id/text_theory_questions_text"
+        android:layout_marginTop="20dp"
+        android:text="Theory Questions"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="6dp"
+        android:id="@+id/layout_text_questions"
+        android:background="@drawable/side_nav_bar"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1.3">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/white"
+android:id="@+id/text_questions_text"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="16sp"
+                android:text="Text Questions"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/white"
+android:id="@+id/text_text_questions"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="18sp"
+                android:text=""/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.7"
+            android:layout_margin="5dp"
+            android:src="@drawable/text_questions"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:id="@+id/layout_situation_questions"
+        android:background="@drawable/side_nav_bar"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1.3">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/white"
+android:id="@+id/situation_questions_text"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="16sp"
+                android:text="Situation Questions"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/white"
+android:id="@+id/text_situation_questions"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="18sp"
+                android:text=""/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.7"
+            android:scaleType="fitXY"
+            android:layout_margin="5dp"
+            android:src="@drawable/situation_images"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="6dp"
+        android:id="@+id/layout_photo_questions"
+        android:background="@drawable/side_nav_bar"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1.3">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/white"
+android:id="@+id/photo_questions_text"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="16sp"
+                android:text="Photo Questions"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/white"
+android:id="@+id/text_photo_questions"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="18sp"
+                android:text=""/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.7"
+            android:layout_margin="5dp"
+            android:src="@drawable/photo_questions"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:background="#164282"
+        android:fontFamily="@font/monsterrat"
+        android:textSize="18sp"
+     android:id="@+id/text_theory_questions_mixed_text"
+        android:layout_marginTop="20dp"
+        android:text="Theory Questions Mixed"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="6dp"
+        android:id="@+id/layout_marked_questions"
+        android:background="@drawable/side_nav_bar"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/text_questions"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#FF000000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:weightSum="2"
+            android:gravity="center"
+            android:layout_weight="1.5">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1.8"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toLeftOf="@+id/image_right">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/white"
+android:id="@+id/common_questions_text"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="16sp"
+                android:text="Common Questions"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/white"
+android:id="@+id/text_marked_questions"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="18sp"
+                android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/image_right">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:tint="@color/white"
+                    android:src="@drawable/right_arrow_white"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:id="@+id/layout_random_questions"
+        android:visibility="gone"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/side_nav_bar"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/situation_images"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#FF000000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:weightSum="2"
+            android:gravity="center"
+            android:layout_weight="1.5">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1.8"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/white"
+
+                android:fontFamily="@font/monsterrat"
+                android:textSize="16sp"
+                android:text="Random Questions"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/white"
+android:id="@+id/text_random_questions"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="18sp"
+                android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/right_arrow_white"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:background="#164282"
+        android:fontFamily="@font/monsterrat"
+     android:id="@+id/text_old_theory_questions_text"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:text="Older Theory Questions"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="6dp"
+        android:id="@+id/layout_old_theory_questions"
+        android:background="@drawable/side_nav_bar"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1.3">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/white"
+android:id="@+id/old_theory_questions_text"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="16sp"
+                android:text="Old Theory Questions"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/white"
+android:id="@+id/text_old_theory_questions"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="18sp"
+                android:text=""/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.7"
+            android:layout_margin="5dp"
+            android:src="@drawable/text_questions"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="6dp"
+        android:id="@+id/layout_questions_without_picture"
+        android:background="@drawable/side_nav_bar"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1.3">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/white"
+android:id="@+id/questions_without_picture_text"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="16sp"
+                android:text="Questions Without a pictures"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/white"
+android:id="@+id/text_questions_without_pictures"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="18sp"
+                android:text=""/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.7"
+            android:layout_margin="5dp"
+            android:src="@drawable/photo_questions"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="6dp"
+        android:id="@+id/layout_signal_questions"
+        android:background="@drawable/side_nav_bar"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1.3">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/white"
+android:id="@+id/signal_questions_text"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="16sp"
+                android:text="Signal Questions"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/white"
+android:id="@+id/text_signal_questions"
+                android:fontFamily="@font/monsterrat"
+                android:textSize="18sp"
+                android:text=""/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.7"
+            android:layout_margin="5dp"
+            android:src="@drawable/situation_images"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

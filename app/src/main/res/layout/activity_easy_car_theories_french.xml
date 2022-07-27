@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EasyCarTheoriesFrench"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp"
+        android:background="@color/logoColor"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="backPressed"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/nunito"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="Théories de voitures faciles"/>
+    </RelativeLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerview_easy_theories"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/easyway2"
+        android:layout_margin="5dp"
+        android:weightSum="2">
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:fontFamily="@font/monsterrat"
+            android:text="Priority from the right"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/theory"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shape" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/easyway1"
+        android:layout_margin="5dp"
+        android:weightSum="2">
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:lineSpacingExtra="5dp"
+            android:fontFamily="@font/monsterrat"
+            android:text="Unregulated cases of priority from the right"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/theory1"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shape" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/easyway2"
+        android:layout_margin="5dp"
+        android:weightSum="2">
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:fontFamily="@font/monsterrat"
+            android:text="Priority from the right"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/theory3"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shape" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/easyway1"
+        android:layout_margin="5dp"
+        android:weightSum="2">
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:lineSpacingExtra="5dp"
+            android:fontFamily="@font/monsterrat"
+            android:text="Unregulated cases of priority from the right"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/theory4"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shape" />
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

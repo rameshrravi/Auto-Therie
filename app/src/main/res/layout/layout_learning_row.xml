@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="15dp"
+        android:id="@+id/layout_container"
+        android:weightSum="2"
+        android:layout_marginTop="30dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.7">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:id="@+id/text_slno"
+                android:background="@drawable/muslim"
+                android:fontFamily="@font/monsterrat"
+                android:gravity="center"
+                android:layout_marginTop="2dp"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Block 1"
+                    android:layout_gravity="left"
+                    android:id="@+id/text_name"
+                    android:fontFamily="@font/monsterrat"
+                    android:padding="3dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#18407B"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Questions 1 - 30"
+                    android:layout_gravity="left"
+                    android:padding="3dp"
+                    android:id="@+id/text_no_of_questions"
+                    android:fontFamily="@font/monsterrat"
+                    android:textSize="15sp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:id="@+id/layout_play"
+            android:layout_margin="3dp"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/blue_circle">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/right_arrow_white"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

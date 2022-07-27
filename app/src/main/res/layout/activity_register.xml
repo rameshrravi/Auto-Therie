@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:orientation="vertical"
+    android:background="@drawable/splash_screen">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_small"
+                android:layout_margin="6dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:gravity="center"
+                android:fontFamily="@font/passion_one"
+                android:textColor="@color/white"
+                android:textSize="18dp"/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/car"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:padding="10dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/nunito"
+        android:textColor="#B01804"
+        android:textSize="36dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Full Name"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nunito"
+        android:textColor="#2F80ED"
+        android:textSize="14sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:padding="8dp"
+        android:inputType="text"
+        android:id="@+id/edittext_full_name"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rectangle_edittext"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email ID"
+
+        android:paddingLeft="20dp"
+        android:fontFamily="@font/nunito"
+        android:textColor="#2F80ED"
+        android:textSize="14sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:padding="8dp"
+        android:layout_marginBottom="10dp"
+        android:inputType="textEmailAddress"
+        android:id="@+id/edittext_email_id"
+        android:background="@drawable/rectangle_edittext"/>
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password"
+
+        android:paddingLeft="20dp"
+        android:fontFamily="@font/nunito"
+        android:textColor="#2F80ED"
+        android:textSize="14sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/edittext_password"
+        android:padding="8dp"
+        android:inputType="textPassword"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rectangle_edittext"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+        android:text="Register"
+        android:id="@+id/text_register"
+        android:background="@drawable/rectangle_color"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="22sp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="right"
+            android:padding="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already Member?"
+                android:gravity="right"
+                android:padding="10dp"
+                android:paddingRight="20dp"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:id="@+id/text_login"
+                android:gravity="right"
+                android:paddingRight="20dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

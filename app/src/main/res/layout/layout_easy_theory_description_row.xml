@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:id="@+id/layout_image_content">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:id="@+id/image_question1"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_small"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/text_description1"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/monsterrat"
+            android:text="Imagine a crossing as a clock. At the top 12 on the right the 3 at the bottom 6 and on the left 9th. The clock never runs the wrong way round"
+            android:lineSpacingExtra="5dp"/>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/image_question"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:src="@drawable/logo_small"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:id="@+id/text_description"
+        android:textColor="@color/black"
+        android:fontFamily="@font/monsterrat"
+        android:text="Imagine a crossing as a clock. At the top 12 on the right the 3 at the bottom 6 and on the left 9th. The clock never runs the wrong way round"
+        android:lineSpacingExtra="5dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black"/>
+
+</LinearLayout>

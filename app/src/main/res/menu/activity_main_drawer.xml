@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_easy_car_theries"
+            android:icon="@drawable/easy_theory"
+            android:title="Easy Car Theory" />
+        <item
+            android:id="@+id/nav_learning"
+            android:icon="@drawable/learning"
+            android:title="Learning" />
+        <item
+            android:id="@+id/nav_exam"
+            android:icon="@drawable/exam_icon"
+            android:title="Exam" />
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/rate"
+            android:title="Rate App" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/share"
+            android:title="Share" />
+        <item
+            android:id="@+id/nav_language"
+            android:icon="@drawable/language"
+            android:title="Language" />
+        <item
+            android:id="@+id/nav_reset"
+            android:icon="@drawable/reset"
+            android:title="Reset" />
+    </group>
+</menu>

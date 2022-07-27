@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AppLanguagesActivity"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp"
+        android:background="@color/logoColor"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="backPressed"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/monsterrat"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="App Languages"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_deutsch"
+        android:padding="10dp"
+        android:weightSum="2">
+
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:id="@+id/text_deutsch"
+            android:fontFamily="@font/monsterrat"
+            android:text="Deutsch"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shape" />
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_french"
+        android:padding="10dp"
+        android:weightSum="2">
+
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:id="@+id/text_french"
+            android:fontFamily="@font/monsterrat"
+            android:text="Franzosisch"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shape" />
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_english"
+        android:padding="10dp"
+        android:weightSum="2">
+
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:id="@+id/text_english"
+            android:fontFamily="@font/monsterrat"
+            android:text="English"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shape" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_italiensch"
+        android:padding="10dp"
+        android:weightSum="2">
+
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:id="@+id/text_italiensch"
+            android:fontFamily="@font/monsterrat"
+            android:text="Italienisch"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shape" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
