@@ -50,6 +50,7 @@ public class RulesActivity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor ;
     LinearLayout layout_learning,layout_rules,layout_exam,layout_profile;
+    String language_id = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class RulesActivity extends AppCompatActivity {
         layout_rules=findViewById(R.id.layout_rules);
         layout_exam=findViewById(R.id.layout_exams);
         layout_profile=findViewById(R.id.layout_profile);
-
+        language_id = preferences.getString(StringConstants.prefLanguageID, "");
         layout_learning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,7 +195,7 @@ public class RulesActivity extends AppCompatActivity {
                 Map<String, String> MyData = new HashMap<String, String>();
                 MyData.put("method", "rules_category");
                 MyData.put("token", token);
-                MyData.put("language_id", "3");
+                MyData.put("language_id", language_id);
                 MyData.put("reg_datetime", currentDate+" "+currentTime);
                 return MyData;
             }

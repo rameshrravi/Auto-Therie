@@ -317,6 +317,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
                 MyData.put("type", type);
                 MyData.put("category_id", categoryID);
                 MyData.put("reg_datetime", currentDate+" "+currentTime);
+                Log.i("LearningBlockAct",MyData.toString());
                 return MyData;
             }
         };

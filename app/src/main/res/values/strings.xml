@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Auto theorieneu</string>
+    <string name="app_name">Autotheorie neu</string>
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="title_activity_homepage">HomepageActivity</string>

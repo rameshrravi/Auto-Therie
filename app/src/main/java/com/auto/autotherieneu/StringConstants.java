@@ -11,7 +11,7 @@ import com.android.volley.VolleyError;
 
 public class StringConstants {
 
-    public static String mainUrl=" http://demo6.maxwellserver.com/clients/Auto%20Theorie%20neu/mapiv1/index.php";
+    public static String mainUrl="http://demo6.maxwellserver.com/clients/Auto%20Theorie%20neu/mapiv1/index.php";
     public static String loginUrl="index.php";
     public static String getAccessTokenUrl="get_token.php?";
 

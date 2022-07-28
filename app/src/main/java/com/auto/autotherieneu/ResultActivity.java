@@ -43,68 +43,78 @@ import java.util.Map;
 
 public class ResultActivity extends AppCompatActivity {
 
-    TextView tv_correct_answers;
-    TextView tv_total_questions,tv_answered_questions,tv_correct_answer,tv_incorrect_answer;
+    TextView tv_correct_answers, related_text;
+    TextView tv_total_questions, tv_answered_questions, tv_correct_answer, tv_incorrect_answer;
 
-    List<QuestionsModel> questionsModelList=new ArrayList<>();
-    int answeredQuestions=0;
-    int correctAnswers=0;
+    List<QuestionsModel> questionsModelList = new ArrayList<>();
+    int answeredQuestions = 0;
+    int correctAnswers = 0;
     String pageFrom;
-    String type="";
-    String categoryID;
+    String type = "";
+    String categoryID, blockID;
     String userID;
     SharedPreferences preferences;
-    SharedPreferences.Editor editor ;
-    String answer ="";
+    SharedPreferences.Editor editor;
+    String answer = "";
     String token;
     RecyclerView recyclerView;
     List<ChapterModel> chapterModelList = new ArrayList<>();
-    ChapterModel chapterModel=new ChapterModel();
+    ChapterModel chapterModel = new ChapterModel();
     String language_id;
+    String allTye = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        preferences =getSharedPreferences(StringConstants.prefMySharedPreference, Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(StringConstants.prefMySharedPreference, Context.MODE_PRIVATE);
         editor = preferences.edit();
 
-        token = preferences.getString(StringConstants.prefToken,"");
-        userID = preferences.getString(StringConstants.prefUserID,"");
+        token = preferences.getString(StringConstants.prefToken, "");
+        userID = preferences.getString(StringConstants.prefUserID, "");
 
-        language_id = preferences.getString(StringConstants.prefLanguageID,"");
+        language_id = preferences.getString(StringConstants.prefLanguageID, "");
         tv_correct_answers = findViewById(R.id.text_correct_answers);
 
-        tv_total_questions=findViewById(R.id.text_total_questions);
-        tv_answered_questions=findViewById(R.id.text_answered_questions);
-        tv_correct_answer=findViewById(R.id.text_correct_answer);
-        tv_incorrect_answer=findViewById(R.id.text_incorrect_answer);
+        tv_total_questions = findViewById(R.id.text_total_questions);
+        tv_answered_questions = findViewById(R.id.text_answered_questions);
+        tv_correct_answer = findViewById(R.id.text_correct_answer);
+        tv_incorrect_answer = findViewById(R.id.text_incorrect_answer);
+        related_text = findViewById(R.id.related_text);
 
         recyclerView = findViewById(R.id.recyclerview_chapters);
 
-        questionsModelList= (List<QuestionsModel>) getIntent().getSerializableExtra("questionModelList");
+        questionsModelList = (List<QuestionsModel>) getIntent().getSerializableExtra("questionModelList");
         pageFrom = getIntent().getStringExtra("ScreenFrom");
         categoryID = getIntent().getStringExtra("CategoryID");
+        if (getIntent().getStringExtra("blockID") != null) {
+            blockID = getIntent().getStringExtra("blockID");
+        }
+        if (getIntent().getStringExtra("type") != null) {
+            allTye = getIntent().getStringExtra("type");
+        }
 
-        if(pageFrom.equals("Learning")){
-            type="learning";
+
+        if (pageFrom.equals("Learning")) {
+            type = "learning";
         }
-        if(pageFrom.equals("Practice")){
-            type="practice";
+        if (pageFrom.equals("Practice")) {
+            type = "practice";
         }
-        if(pageFrom.equals("Theory")){
-            type="theories";
+        if (pageFrom.equals("Theory")) {
+            type = "theories";
         }
 
         tv_total_questions.setText(String.valueOf(questionsModelList.size()));
 
-        for(int i=0;i<questionsModelList.size();i++){
+        for (int i = 0; i < questionsModelList.size(); i++) {
 
             /*if(questionsModelList.get(i).getCorrectAnswer().contains(questionsModelList.get(i).getUserAnswer())){
 
             }*/
-            if(!questionsModelList.get(i).getUserAnswer().equals("")){
-                correctAnswers=correctAnswers+1;
+            if (!questionsModelList.get(i).getUserAnswer().equals("")) {
+                correctAnswers = correctAnswers + 1;
             }
 
 /*
@@ -112,26 +122,24 @@ public class ResultActivity extends AppCompatActivity {
                 correctAnswers=correctAnswers+1;
             }
 */
-            if(questionsModelList.get(i).getIsAnswered().equals("yes")){
-                answeredQuestions=answeredQuestions+1;
+            if (questionsModelList.get(i).getIsAnswered().equals("yes")) {
+                answeredQuestions = answeredQuestions + 1;
             }
 
-            answer=answer+","+questionsModelList.get(i).getId()+"-"+questionsModelList.get(i).getUserAnswer();
+            answer = answer + "," + questionsModelList.get(i).getId() + "-" + questionsModelList.get(i).getUserAnswer();
         }
 
-        answer =answer.substring(1);
+        answer = answer.substring(1);
 
-        tv_correct_answer.setText(String.valueOf(correctAnswers));
-        tv_answered_questions.setText(String.valueOf(answeredQuestions));
-        tv_incorrect_answer.setText(String.valueOf(answeredQuestions-correctAnswers));
-      //  tv_incorrect_answer.setText(String.valueOf(correctAnswers-answeredQuestions));
 
-        getChapters();
+        //  tv_incorrect_answer.setText(String.valueOf(correctAnswers-answeredQuestions));
 
+        //getChapters();
+        getExamResult();
     }
 
-    public void getChapters(){
-        final ProgressDialog pDialog=new ProgressDialog(ResultActivity.this);
+    public void getChapters() {
+        final ProgressDialog pDialog = new ProgressDialog(ResultActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -144,31 +152,31 @@ public class ResultActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(ResultActivity.this);
         requestQueue.getCache().clear();
 
-        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl , new Response.Listener<String>() {
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //This code is executed if the server responds, whether or not the response contains data.
                 //The String 'response' contains the server's response.
-                Log.d("Response",response);
+                Log.d("Response", response);
 
                 try {
 
-                    JSONObject jsonObject=new JSONObject(response.trim());
-                    if(jsonObject.has("response")){
+                    JSONObject jsonObject = new JSONObject(response.trim());
+                    if (jsonObject.has("response")) {
 
-                        JSONArray responseArray=jsonObject.getJSONArray("response");
+                        JSONArray responseArray = jsonObject.getJSONArray("response");
 
-                        if(responseArray.length()>0){
-                            JSONObject object=responseArray.getJSONObject(0);
-                            if(object.has("status")){
+                        if (responseArray.length() > 0) {
+                            JSONObject object = responseArray.getJSONObject(0);
+                            if (object.has("status")) {
                                 String status = object.getString("status");
-                                if(status.equals("success")) {
+                                if (status.equals("success")) {
 
-                                    JSONArray array= object.getJSONArray("category_list");
-                                    chapterModelList=new ArrayList<>();
-                                    for(int i=0;i<array.length();i++){
-                                        JSONObject jsonObject1=array.getJSONObject(i);
-                                        chapterModel=new ChapterModel();
+                                    JSONArray array = object.getJSONArray("category_list");
+                                    chapterModelList = new ArrayList<>();
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject jsonObject1 = array.getJSONObject(i);
+                                        chapterModel = new ChapterModel();
                                         chapterModel.setId(jsonObject1.getString("id"));
                                         chapterModel.setChapterName(jsonObject1.getString("category_name"));
                                         chapterModel.setImage(jsonObject1.getString("image"));
@@ -181,10 +189,10 @@ public class ResultActivity extends AppCompatActivity {
                                     LinearLayoutManager horizontalLayoutManager1 = new LinearLayoutManager(getApplicationContext());
                                     recyclerView.setLayoutManager(horizontalLayoutManager1);
                                     recyclerView.setAdapter(notificationAdapter);
-                                }else {
+                                } else {
                                     showAlertDialog(object.getString("message"));
                                 }
-                            }else {
+                            } else {
                                 showAlertDialog(object.getString("message"));
                             }
                         }
@@ -196,7 +204,7 @@ public class ResultActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if(pDialog.isShowing()){
+                if (pDialog.isShowing()) {
                     pDialog.dismiss();
                 }
             }
@@ -205,7 +213,7 @@ public class ResultActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 //This code is executed if there is an error.
                 pDialog.dismiss();
-                String errorMessage=StringConstants.ErrorMessage(error);
+                String errorMessage = StringConstants.ErrorMessage(error);
 
             }
         }) {
@@ -221,7 +229,7 @@ public class ResultActivity extends AppCompatActivity {
                 MyData.put("no_of_correct_answer", tv_correct_answer.getText().toString().trim());
                 MyData.put("no_of_wrong_answer", tv_incorrect_answer.getText().toString().trim());
                 MyData.put("queid_answer", answer);
-                MyData.put("datetime", currentDate+" "+currentTime);
+                MyData.put("datetime", currentDate + " " + currentTime);
                 return MyData;
             }
         };
@@ -229,7 +237,8 @@ public class ResultActivity extends AppCompatActivity {
         requestQueue.add(MyStringRequest);
 
     }
-    public void showAlertDialog(String message){
+
+    public void showAlertDialog(String message) {
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ResultActivity.this);
         alertDialogBuilder.setMessage(message);
         alertDialogBuilder.setTitle("Auto Therie neu");
@@ -251,14 +260,15 @@ public class ResultActivity extends AppCompatActivity {
 
 
         Context context;
-        int row_index=-1;
+        int row_index = -1;
 
-        public ChapterAdapter(Context context, List<ChapterModel> chapterModelList){
+        public ChapterAdapter(Context context, List<ChapterModel> chapterModelList) {
             this.chapterModelList = chapterModelList;
             this.context = context;
 
 
         }
+
         @NonNull
         @Override
         public ChapterAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -273,28 +283,27 @@ public class ResultActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull final ChapterAdapter.MyViewHolder holder, int position) {
             final ChapterModel chapterModel = chapterModelList.get(position);
             holder.tv_title.setText(chapterModel.getChapterName());
-            holder.tv_questions.setText("No.of Questions : "+chapterModel.getNumberOfQuestions());
+            holder.tv_questions.setText("No.of Questions : " + chapterModel.getNumberOfQuestions());
             Glide.with(context)
                     .load(chapterModel.getImage())
                     .into(holder.iv_chapter);
-            if(position%2==1){
+            if (position % 2 == 1) {
                 holder.linearLayoutContainer.setBackground(getResources().getDrawable(R.drawable.rectangle_home1));
-            }else {
+            } else {
                 holder.linearLayoutContainer.setBackground(getResources().getDrawable(R.drawable.rectangle_home));
             }
             holder.linearLayoutContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Intent i = new Intent(context,ExamInstructionsActivity.class);
+                    Intent i = new Intent(context, ExamInstructionsActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    i.putExtra("CategoryID",chapterModel.getId());
-                    i.putExtra("CategoryName",chapterModel.getChapterName());
-                    i.putExtra("FromScreen","Learning");
+                    i.putExtra("CategoryID", chapterModel.getId());
+                    i.putExtra("CategoryName", chapterModel.getChapterName());
+                    i.putExtra("FromScreen", "Learning");
                     context.startActivity(i);
                 }
             });
-
 
 
         }
@@ -305,7 +314,7 @@ public class ResultActivity extends AppCompatActivity {
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            private TextView tv_title,tv_questions;
+            private TextView tv_title, tv_questions;
             LinearLayout linearLayoutContainer;
             ImageView iv_chapter;
 
@@ -314,8 +323,8 @@ public class ResultActivity extends AppCompatActivity {
 
                 tv_title = (TextView) view.findViewById(R.id.text_name);
                 tv_questions = (TextView) view.findViewById(R.id.text_no_of_questions);
-                iv_chapter= (ImageView) view.findViewById(R.id.image_chapter);
-                linearLayoutContainer=(LinearLayout) view.findViewById(R.id.layout_container);
+                iv_chapter = (ImageView) view.findViewById(R.id.image_chapter);
+                linearLayoutContainer = (LinearLayout) view.findViewById(R.id.layout_container);
 
             }
         }
@@ -323,15 +332,144 @@ public class ResultActivity extends AppCompatActivity {
     }
 
 
-    public void backPressed(View view){
+    public void backPressed(View view) {
         onBackPressed();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i =new Intent(getApplicationContext(),HomepageActivity.class);
-        startActivity(i);
-        finish();
+        if(language_id.equals("1")){
+            Intent i = new Intent(getApplicationContext(), HomepageGermanActivity.class);
+            startActivity(i);
+            finish();
+
+        }else if(language_id.equals("2")){
+            Intent i = new Intent(getApplicationContext(), HomepageGermanActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if(language_id.equals("3")){
+            Intent i = new Intent(getApplicationContext(), HomepageActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if(language_id.equals("4")){
+            Intent i = new Intent(getApplicationContext(), HomepageItalianActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+    }
+
+    public void getExamResult() {
+        final ProgressDialog pDialog = new ProgressDialog(ResultActivity.this);
+        pDialog.setMessage("Getting Details..");
+        pDialog.setCancelable(false);
+        pDialog.setTitle("");
+        pDialog.show();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        final String currentDate = sdf.format(new Date());
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        final String currentTime = df.format(Calendar.getInstance().getTime());
+
+        RequestQueue requestQueue = Volley.newRequestQueue(ResultActivity.this);
+        requestQueue.getCache().clear();
+
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+                Log.d("Response", response);
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response.trim());
+                    if (jsonObject.has("response")) {
+
+                        JSONArray responseArray = jsonObject.getJSONArray("response");
+
+                        if (responseArray.length() > 0) {
+                            JSONObject object = responseArray.getJSONObject(0);
+                            if (object.has("status")) {
+                                String status = object.getString("status");
+                                if (status.equals("success")) {
+
+                                    JSONArray array = object.getJSONArray("practice_category_details");
+                                    if (array.length() > 0) {
+                                        for (int i = 0; i < array.length(); i++) {
+                                            JSONObject jsonObject1 = array.getJSONObject(i);
+                                            chapterModel = new ChapterModel();
+                                            chapterModel.setId(jsonObject1.getString("id"));
+                                            chapterModel.setChapterName(jsonObject1.getString("category_name"));
+                                            chapterModel.setImage(jsonObject1.getString("image"));
+                                            chapterModel.setNumberOfQuestions(jsonObject1.getString("no_of_questions"));
+
+                                            chapterModelList.add(chapterModel);
+                                        }
+
+                                        ChapterAdapter notificationAdapter = new ChapterAdapter(ResultActivity.this, chapterModelList);
+                                        LinearLayoutManager horizontalLayoutManager1 = new LinearLayoutManager(getApplicationContext());
+                                        recyclerView.setLayoutManager(horizontalLayoutManager1);
+                                        recyclerView.setAdapter(notificationAdapter);
+                                    }else
+
+                                        related_text.setVisibility(View.GONE);
+                                    }
+                                    String totalnoofquestion = object.getString("totalnoofquestion");
+                                    String attend_questions = object.getString("attend_questions");
+                                    String not_attend_questions = object.getString("not_attend_questions");
+                                    String correct_answer = object.getString("correct_answer");
+                                    String wrong_answer = object.getString("wrong_answer");
+                                    tv_total_questions.setText(totalnoofquestion);
+                                    tv_correct_answer.setText(correct_answer);
+                                    tv_answered_questions.setText(attend_questions);
+                                    tv_incorrect_answer.setText(wrong_answer);
+                                } else {
+                                    showAlertDialog(object.getString("message"));
+                                }
+                            } else {
+                                showAlertDialog(object.getString("message"));
+                            }
+                        }
+
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if (pDialog.isShowing()) {
+                    pDialog.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //This code is executed if there is an error.
+                pDialog.dismiss();
+                String errorMessage = StringConstants.ErrorMessage(error);
+
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("method", "exam_list_and_result");
+                MyData.put("token", token);
+                MyData.put("category_id", categoryID);
+                MyData.put("type", allTye);
+                MyData.put("language_id", language_id);
+                MyData.put("user_id", userID);
+                ;
+                MyData.put("block_id", blockID);
+                Log.i("exam_list_and_result", MyData.toString());
+                return MyData;
+            }
+        };
+
+        requestQueue.add(MyStringRequest);
+
     }
 }

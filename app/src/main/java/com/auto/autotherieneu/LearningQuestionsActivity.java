@@ -54,7 +54,7 @@ public class LearningQuestionsActivity extends AppCompatActivity {
     String type = "";
     String categoryID,CategoryIDD;
     String userID;
-    String language_id = "3";
+    String language_id = "";
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     RecyclerView recyclerView;
@@ -1131,7 +1131,19 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    updateAnswersFinalUpdate();
+                    if(answer.equals("")){
+                        Intent i = new Intent(getApplicationContext(), ResultActivity.class);
+                        i.putExtra("questionModelList", (Serializable) questionsModelList);
+                        i.putExtra("ScreenFrom", fromScreen);
+                        i.putExtra("CategoryID", categoryID);
+                        i.putExtra("blockID", CategoryIDD);
+                        i.putExtra("type", type);
+                        startActivity(i);
+                    }else {
+                        questionsModel1 = questionsModelList.get(position1);
+                        updateAnswersFinalUpdate();
+                    }
+
 
                 }
 
@@ -1389,7 +1401,7 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                 MyData.put("category_id", categoryID);
                 MyData.put("type", type);
                 MyData.put("block_id", questionsModel1.getBlockID());
-                MyData.put("language_id", "3");
+                MyData.put("language_id", language_id);
                 MyData.put("user_id", userID);
                 MyData.put("question_id", questionsModel1.getId());
               //  MyData.put("answer", questionsModel1.getUserAnswer());
@@ -1440,6 +1452,8 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                                     i.putExtra("questionModelList", (Serializable) questionsModelList);
                                     i.putExtra("ScreenFrom", fromScreen);
                                     i.putExtra("CategoryID", categoryID);
+                                    i.putExtra("blockID", CategoryIDD);
+                                    i.putExtra("type", type);
                                     startActivity(i);
 
                                 } else {
@@ -1477,7 +1491,7 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                 MyData.put("category_id", categoryID);
                 MyData.put("type", type);
                 MyData.put("block_id", questionsModel1.getBlockID());
-                MyData.put("language_id", "3");
+                MyData.put("language_id", language_id);
                 MyData.put("user_id", userID);
                 MyData.put("question_id", questionsModel1.getId());
                 //  MyData.put("answer", questionsModel1.getUserAnswer());
