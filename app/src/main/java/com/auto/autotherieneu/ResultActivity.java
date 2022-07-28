@@ -389,9 +389,9 @@ public class ResultActivity extends AppCompatActivity {
                     if (jsonObject.has("response")) {
 
                         JSONArray responseArray = jsonObject.getJSONArray("response");
-
+                        JSONObject object = responseArray.getJSONObject(0);
                         if (responseArray.length() > 0) {
-                            JSONObject object = responseArray.getJSONObject(0);
+
                             if (object.has("status")) {
                                 String status = object.getString("status");
                                 if (status.equals("success")) {
@@ -435,7 +435,6 @@ public class ResultActivity extends AppCompatActivity {
                         }
 
 
-                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
