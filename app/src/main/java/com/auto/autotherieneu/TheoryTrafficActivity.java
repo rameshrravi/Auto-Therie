@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -213,9 +214,11 @@ public class TheoryTrafficActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
             final EasyCarTheoryModel chapterModel = easyCarTheoryModelList.get(position);
            // holder.tv_description.setText(chapterModel.getDescription());
-            holder.tv_description.setText((Html.fromHtml(Html.fromHtml(chapterModel.getDescription()).toString())));
+            //holder.tv_description.setText((Html.fromHtml(Html.fromHtml(chapterModel.getDescription()).toString())));
+            holder.tv_description.setText(HtmlCompat.fromHtml(chapterModel.getDescription(), 0));
+            holder.tv_description1.setText(HtmlCompat.fromHtml(chapterModel.getDescription(), 0));
            // holder.tv_description1.setText(chapterModel.getDescription());
-            holder.tv_description1.setText((Html.fromHtml(Html.fromHtml(chapterModel.getDescription()).toString())));
+            //holder.tv_description1.setText((Html.fromHtml(Html.fromHtml(chapterModel.getDescription()).toString())));
 
             Glide.with(context)
                     .load(chapterModel.getImage())

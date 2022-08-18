@@ -53,19 +53,21 @@ public class LearningBlocksActivity extends AppCompatActivity {
     String categoryID;
     RecyclerView recyclerView;
     List<ChapterModel> chapterModelList = new ArrayList<>();
-    ChapterModel chapterModel=new ChapterModel();
+    ChapterModel chapterModel = new ChapterModel();
     String token;
-    String language_id="3";
-    String user_id="";
-    String type;
+    String language_id = "3";
+    String user_id = "";
+    String type,category;
     SharedPreferences preferences;
-    SharedPreferences.Editor editor ;
+    SharedPreferences.Editor editor;
     PieChartView pieChartView;
     TextView tv_reset;
     List<SliceValue> pieData = new ArrayList<>();
-    TextView tv_correct_answers,tv_wrong_answers,tv_unanswered_questions,tv_partially_right;
+    TextView tv_correct_answers, tv_wrong_answers, tv_unanswered_questions, tv_partially_right;
     MyDatabaseHelper myDataBaseHelper;
-    boolean shouldResume=false;
+    boolean shouldResume = false;
+    LinearLayout Linear_correct_answer, LinearPartially, LinearWrong, LinearUnwanted;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,46 +82,122 @@ public class LearningBlocksActivity extends AppCompatActivity {
         tv_partially_right = findViewById(R.id.text_partially_right);
         tv_wrong_answers = findViewById(R.id.text_wrong_answers);
         tv_unanswered_questions = findViewById(R.id.text_unanswered_questions);
+        Linear_correct_answer = findViewById(R.id.Linear_correct_answer);
+        LinearWrong = findViewById(R.id.LinearWrong);
+        LinearPartially = findViewById(R.id.LinearPartially);
+        LinearUnwanted = findViewById(R.id.LinearUnwanted);
 
 
         tv_category_name.setText(getIntent().getStringExtra("Category"));
 
         categoryID = getIntent().getStringExtra("CategoryID");
         type = getIntent().getStringExtra("Type");
+        category=getIntent().getStringExtra("Category");
 
-        preferences =getSharedPreferences(StringConstants.prefMySharedPreference, Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(StringConstants.prefMySharedPreference, Context.MODE_PRIVATE);
         editor = preferences.edit();
 
-        token = preferences.getString(StringConstants.prefToken,"");
-        language_id = preferences.getString(StringConstants.prefLanguageID,"");
-        user_id = preferences.getString(StringConstants.prefUserID,"");
+        token = preferences.getString(StringConstants.prefToken, "");
+        language_id = preferences.getString(StringConstants.prefLanguageID, "");
+        user_id = preferences.getString(StringConstants.prefUserID, "");
 
         recyclerView = findViewById(R.id.recyclerview_learning_details);
 
         pieChartView = findViewById(R.id.chart);
+        Linear_correct_answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String correct=tv_correct_answers.getText().toString();
+                if(!correct.equals("0")){
+                    Intent i = new Intent(getApplicationContext(), AnswerActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.putExtra("CategoryID", categoryID);
+                    i.putExtra("CategoryIDD", chapterModel.getId());
+                    i.putExtra("CategoryName", chapterModel.getChapterName());
+                    i.putExtra("answer_type", "CorrectAnswer");
+                    i.putExtra("FromScreen", "Learning");
+                    i.putExtra("category", category);
+                    i.putExtra("Type", type);
+                    startActivity(i);
+                }
 
+            }
+        });
+        LinearWrong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String correct=tv_wrong_answers.getText().toString();
+                if(!correct.equals("0")){
+                    Intent i = new Intent(getApplicationContext(), WrongActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.putExtra("CategoryID", categoryID);
+                    i.putExtra("CategoryIDD", chapterModel.getId());
+                    i.putExtra("CategoryName", chapterModel.getChapterName());
+                    i.putExtra("answer_type", "WrongAnswer");
+                    i.putExtra("FromScreen", "Learning");
+                    i.putExtra("Type", type);
+                    startActivity(i);
+                }
+
+            }
+        });
+        LinearPartially.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String correct=tv_partially_right.getText().toString();
+                if(!correct.equals("0")) {
+                    Intent i = new Intent(getApplicationContext(), PartiallyQueActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.putExtra("CategoryID", categoryID);
+                    i.putExtra("CategoryIDD", chapterModel.getId());
+                    i.putExtra("CategoryName", chapterModel.getChapterName());
+                    i.putExtra("answer_type", "PartialAnswer");
+                    i.putExtra("FromScreen", "Learning");
+                    i.putExtra("category", category);
+                    i.putExtra("Type", type);
+                    startActivity(i);
+                }
+            }
+        });
+        LinearUnwanted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String correct=tv_unanswered_questions.getText().toString();
+                if(!correct.equals("0")) {
+                    Intent i = new Intent(getApplicationContext(), WrongActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.putExtra("CategoryID", categoryID);
+                    i.putExtra("CategoryIDD", chapterModel.getId());
+                    i.putExtra("CategoryName", chapterModel.getChapterName());
+                    i.putExtra("answer_type", "UnAnswered");
+                    i.putExtra("FromScreen", "Learning");
+                    i.putExtra("category", category);
+                    i.putExtra("Type", type);
+                    startActivity(i);
+                }
+            }
+        });
 
         tv_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-               resetAnswers();
+                resetAnswers();
 
             }
         });
-
 
 
         getChapters();
 
     }
 
-    public void backPressed(View view){
+    public void backPressed(View view) {
         onBackPressed();
     }
 
-    public void getChapters(){
-        final ProgressDialog pDialog=new ProgressDialog(LearningBlocksActivity.this);
+    public void getChapters() {
+        final ProgressDialog pDialog = new ProgressDialog(LearningBlocksActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -132,37 +210,40 @@ public class LearningBlocksActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(LearningBlocksActivity.this);
         requestQueue.getCache().clear();
 
-        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl , new Response.Listener<String>() {
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //This code is executed if the server responds, whether or not the response contains data.
                 //The String 'response' contains the server's response.
-                Log.d("Response",response);
+                Log.d("Response", response);
 
                 try {
 
-                    JSONObject jsonObject=new JSONObject(response.trim());
-                    if(jsonObject.has("response")){
+                    JSONObject jsonObject = new JSONObject(response.trim());
+                    if (jsonObject.has("response")) {
 
-                        JSONArray responseArray=jsonObject.getJSONArray("response");
+                        JSONArray responseArray = jsonObject.getJSONArray("response");
 
-                        if(responseArray.length()>0){
-                            JSONObject object=responseArray.getJSONObject(0);
-                            if(object.has("status")){
+                        if (responseArray.length() > 0) {
+                            JSONObject object = responseArray.getJSONObject(0);
+                            if (object.has("status")) {
                                 String status = object.getString("status");
-                                if(status.equals("success")){
+                                if (status.equals("success")) {
 
-                                    if(object.has("not_attend_questions")){
+                                    if (object.has("not_attend_questions")) {
                                         tv_unanswered_questions.setText(object.getString("not_attend_questions"));
                                     }
-                                    if(object.has("correct_answer")){
+                                    if (object.has("correct_answer")) {
                                         tv_correct_answers.setText(object.getString("correct_answer"));
                                     }
-                                    if(object.has("wrong_answer")){
+                                    if (object.has("wrong_answer")) {
                                         tv_wrong_answers.setText(object.getString("wrong_answer"));
                                     }
+                                    if (object.has("partial_answer")) {
+                                        tv_partially_right.setText(object.getString("partial_answer"));
+                                    }
 
-                                    pieData=new ArrayList<>();
+                                    pieData = new ArrayList<>();
                                     pieData.add(new SliceValue(Integer.parseInt(object.getString("correct_answer")), getResources().getColor(R.color.green)));
                                     pieData.add(new SliceValue(0, getResources().getColor(R.color.orange)));
                                     pieData.add(new SliceValue(Integer.parseInt(object.getString("wrong_answer")), getResources().getColor(R.color.red)));
@@ -172,11 +253,11 @@ public class LearningBlocksActivity extends AppCompatActivity {
                                     pieChartView.setPieChartData(pieChartData);
 
 
-                                    JSONArray array= object.getJSONArray("block_details");
-                                    chapterModelList=new ArrayList<>();
-                                    for(int i=0;i<array.length();i++){
-                                        JSONObject jsonObject1=array.getJSONObject(i);
-                                        chapterModel=new ChapterModel();
+                                    JSONArray array = object.getJSONArray("block_details");
+                                    chapterModelList = new ArrayList<>();
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject jsonObject1 = array.getJSONObject(i);
+                                        chapterModel = new ChapterModel();
                                         chapterModel.setId(jsonObject1.getString("id"));
                                         chapterModel.setChapterName(jsonObject1.getString("block"));
                                         chapterModel.setNumberOfQuestions(jsonObject1.getString("description"));
@@ -185,16 +266,15 @@ public class LearningBlocksActivity extends AppCompatActivity {
                                     }
 
 
-
                                     ChapterAdapter notificationAdapter = new ChapterAdapter(LearningBlocksActivity.this, chapterModelList);
                                     LinearLayoutManager horizontalLayoutManager1 = new LinearLayoutManager(getApplicationContext());
                                     recyclerView.setLayoutManager(horizontalLayoutManager1);
                                     recyclerView.setAdapter(notificationAdapter);
 
-                                }else {
+                                } else {
                                     showAlertDialog(object.getString("message"));
                                 }
-                            }else {
+                            } else {
                                 showAlertDialog(object.getString("message"));
                             }
                         }
@@ -206,7 +286,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if(pDialog.isShowing()){
+                if (pDialog.isShowing()) {
                     pDialog.dismiss();
                 }
             }
@@ -215,7 +295,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 //This code is executed if there is an error.
                 pDialog.dismiss();
-                String errorMessage=StringConstants.ErrorMessage(error);
+                String errorMessage = StringConstants.ErrorMessage(error);
 
             }
         }) {
@@ -227,7 +307,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
                 MyData.put("user_id", user_id);
                 MyData.put("type", type);
                 MyData.put("category_id", categoryID);
-                MyData.put("reg_datetime", currentDate+" "+currentTime);
+                MyData.put("reg_datetime", currentDate + " " + currentTime);
                 return MyData;
             }
         };
@@ -239,13 +319,13 @@ public class LearningBlocksActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(shouldResume){
+        if (shouldResume) {
             recreate();
         }
     }
 
-    public void resetAnswers(){
-        final ProgressDialog pDialog=new ProgressDialog(LearningBlocksActivity.this);
+    public void resetAnswers() {
+        final ProgressDialog pDialog = new ProgressDialog(LearningBlocksActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -258,32 +338,32 @@ public class LearningBlocksActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(LearningBlocksActivity.this);
         requestQueue.getCache().clear();
 
-        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl , new Response.Listener<String>() {
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //This code is executed if the server responds, whether or not the response contains data.
                 //The String 'response' contains the server's response.
-                Log.d("Response",response);
+                Log.d("Response", response);
 
                 try {
 
-                    JSONObject jsonObject=new JSONObject(response.trim());
-                    if(jsonObject.has("response")){
+                    JSONObject jsonObject = new JSONObject(response.trim());
+                    if (jsonObject.has("response")) {
 
-                        JSONArray responseArray=jsonObject.getJSONArray("response");
+                        JSONArray responseArray = jsonObject.getJSONArray("response");
 
-                        if(responseArray.length()>0){
-                            JSONObject object=responseArray.getJSONObject(0);
-                            if(object.has("status")){
+                        if (responseArray.length() > 0) {
+                            JSONObject object = responseArray.getJSONObject(0);
+                            if (object.has("status")) {
                                 String status = object.getString("status");
-                                if(status.equals("success")){
+                                if (status.equals("success")) {
 
                                     getChapters();
 
-                                }else {
+                                } else {
                                     showAlertDialog(object.getString("message"));
                                 }
-                            }else {
+                            } else {
                                 showAlertDialog(object.getString("message"));
                             }
                         }
@@ -295,7 +375,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if(pDialog.isShowing()){
+                if (pDialog.isShowing()) {
                     pDialog.dismiss();
                 }
             }
@@ -304,7 +384,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 //This code is executed if there is an error.
                 pDialog.dismiss();
-                String errorMessage=StringConstants.ErrorMessage(error);
+                String errorMessage = StringConstants.ErrorMessage(error);
 
             }
         }) {
@@ -316,8 +396,8 @@ public class LearningBlocksActivity extends AppCompatActivity {
                 MyData.put("user_id", user_id);
                 MyData.put("type", type);
                 MyData.put("category_id", categoryID);
-                MyData.put("reg_datetime", currentDate+" "+currentTime);
-                Log.i("LearningBlockAct",MyData.toString());
+                MyData.put("reg_datetime", currentDate + " " + currentTime);
+                Log.i("LearningBlockAct", MyData.toString());
                 return MyData;
             }
         };
@@ -326,7 +406,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
 
     }
 
-    public void showAlertDialog(String message){
+    public void showAlertDialog(String message) {
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LearningBlocksActivity.this);
         alertDialogBuilder.setMessage(message);
         alertDialogBuilder.setTitle("Auto Therie neu");
@@ -341,20 +421,22 @@ public class LearningBlocksActivity extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
     public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.MyViewHolder> {
 
         private List<ChapterModel> chapterModelList;
 
 
         Context context;
-        int row_index=-1;
+        int row_index = -1;
 
-        public ChapterAdapter(Context context, List<ChapterModel> chapterModelList){
+        public ChapterAdapter(Context context, List<ChapterModel> chapterModelList) {
             this.chapterModelList = chapterModelList;
             this.context = context;
 
 
         }
+
         @NonNull
         @Override
         public ChapterAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -369,7 +451,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull final ChapterAdapter.MyViewHolder holder, int position) {
             final ChapterModel chapterModel = chapterModelList.get(position);
             holder.tv_title.setText(chapterModel.getChapterName());
-            holder.tv_slno.setText(String.valueOf(position+1));
+            holder.tv_slno.setText(String.valueOf(position + 1));
             holder.tv_questions.setText(chapterModel.getNumberOfQuestions());
 
 
@@ -378,14 +460,14 @@ public class LearningBlocksActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     shouldResume = true;
-                    Intent i = new Intent(context,LearningQuestionsActivity.class);
+                    Intent i = new Intent(context, LearningQuestionsActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    i.putExtra("CategoryID",categoryID);
-                    i.putExtra("CategoryIDD",chapterModel.getId());
-                    i.putExtra("CategoryName",chapterModel.getChapterName());
-                    i.putExtra("FromScreen","Learning");
+                    i.putExtra("CategoryID", categoryID);
+                    i.putExtra("CategoryIDD", chapterModel.getId());
+                    i.putExtra("CategoryName", chapterModel.getChapterName());
+                    i.putExtra("FromScreen", "Learning");
 
-                    i.putExtra("Type",type);
+                    i.putExtra("Type", type);
                     context.startActivity(i);
                 }
             });
@@ -399,7 +481,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            private TextView tv_title,tv_questions,tv_slno;
+            private TextView tv_title, tv_questions, tv_slno;
             LinearLayout linearLayoutContainer;
             ImageView iv_chapter;
 
@@ -410,7 +492,7 @@ public class LearningBlocksActivity extends AppCompatActivity {
                 tv_slno = (TextView) view.findViewById(R.id.text_slno);
                 tv_questions = (TextView) view.findViewById(R.id.text_no_of_questions);
 
-                linearLayoutContainer=(LinearLayout)view.findViewById(R.id.layout_container);
+                linearLayoutContainer = (LinearLayout) view.findViewById(R.id.layout_container);
 
             }
         }

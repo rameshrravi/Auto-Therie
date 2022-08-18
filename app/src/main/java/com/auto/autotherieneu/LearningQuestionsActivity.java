@@ -52,7 +52,7 @@ public class LearningQuestionsActivity extends AppCompatActivity {
     int position1 = 0;
     String answer = "";
     String type = "";
-    String categoryID,CategoryIDD;
+    String categoryID, CategoryIDD;
     String userID;
     String language_id = "";
     SharedPreferences preferences;
@@ -68,7 +68,7 @@ public class LearningQuestionsActivity extends AppCompatActivity {
     TextView tv_question_number;
     ImageView iv_answer1, iv_answer2, iv_answer3, iv_answer4;
     MyDatabaseHelper myDataBaseHelper;
-    int liner1=0,liner2=0,liner3=0,liner4=0;
+    int liner1 = 0, liner2 = 0, liner3 = 0, liner4 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,56 +115,72 @@ public class LearningQuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (questionsModelList.get(position1).getUseranswered().length() > 0) {
-                  return;
+                    return;
                 }
-                liner1=1;
-                if(answer.equals("")){
+                if (liner1 == 1) {
+
+                    return;
+                }
+                liner1 = 1;
+                if (answer.equals("")) {
                     answer = "answer1";
-                }else {
+                } else {
                     answer = answer + "," + "answer1";
                 }
 
-                iv_answer1.setVisibility(View.VISIBLE);
-                iv_answer2.setVisibility(View.VISIBLE);
-                iv_answer3.setVisibility(View.VISIBLE);
-                iv_answer4.setVisibility(View.VISIBLE);
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
-                    iv_answer1.setImageResource(R.drawable.correct);
+
+                if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
+                    if (answer.split(",").length == 2) {
+                        iv_answer1.setVisibility(View.VISIBLE);
+                        iv_answer2.setVisibility(View.VISIBLE);
+                        iv_answer3.setVisibility(View.VISIBLE);
+                        iv_answer4.setVisibility(View.VISIBLE);
+                        showparially();
+                    }
                 } else {
-                    iv_answer1.setImageResource(R.drawable.wrong);
-                }
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
-                    iv_answer2.setImageResource(R.drawable.correct);
-                } else {
-                    iv_answer2.setImageResource(R.drawable.wrong);
+                    iv_answer1.setVisibility(View.VISIBLE);
+                    iv_answer2.setVisibility(View.VISIBLE);
+                    iv_answer3.setVisibility(View.VISIBLE);
+                    iv_answer4.setVisibility(View.VISIBLE);
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                        iv_answer1.setImageResource(R.drawable.correct);
+                    } else {
+                        iv_answer1.setImageResource(R.drawable.wrong);
+                    }
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                        iv_answer2.setImageResource(R.drawable.correct);
+                    } else {
+                        iv_answer2.setImageResource(R.drawable.wrong);
+                    }
+
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                        iv_answer3.setImageResource(R.drawable.correct);
+                    } else {
+                        iv_answer3.setImageResource(R.drawable.wrong);
+                    }
+
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                        iv_answer4.setImageResource(R.drawable.correct);
+                    } else {
+                        iv_answer4.setImageResource(R.drawable.wrong);
+                    }
                 }
 
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                    iv_answer3.setImageResource(R.drawable.correct);
-                } else {
-                    iv_answer3.setImageResource(R.drawable.wrong);
-                }
-
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                    iv_answer4.setImageResource(R.drawable.correct);
-                } else {
-                    iv_answer4.setImageResource(R.drawable.wrong);
-                }
-                if (liner2==1) {
+                if (liner2 == 1) {
                     layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                }else {
+                } else {
                     layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
 
-                if (liner3==1) {
+                if (liner3 == 1) {
                     layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
 
-                }else {
+                } else {
                     layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
-                if (liner4==1) {
+                if (liner4 == 1) {
                     layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                }else {
+                } else {
                     layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
@@ -185,75 +201,74 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                 if (questionsModelList.get(position1).getUseranswered().length() > 0) {
                     return;
                 }
-                if(answer.equals("")){
+                if (liner2 == 1) {
+
+                    return;
+                }
+                if (answer.equals("")) {
                     answer = "answer2";
-                }else {
+                } else {
 
                     answer = answer + "," + "answer2";
                 }
 
-              /*  if(questionsModelList.get(position1).getCorrectAnswer().equals("answer2")){
-                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                }
-                else {
-                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_red));
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer1")){
-                        layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+
+                liner2 = 1;
+
+                if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
+                    if (answer.split(",").length == 2) {
+                        showparially();
+                        iv_answer1.setVisibility(View.VISIBLE);
+                        iv_answer2.setVisibility(View.VISIBLE);
+                        iv_answer3.setVisibility(View.VISIBLE);
+                        iv_answer4.setVisibility(View.VISIBLE);
                     }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer3")){
-                        layout_answer3.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                } else {
+                    iv_answer1.setVisibility(View.VISIBLE);
+                    iv_answer2.setVisibility(View.VISIBLE);
+                    iv_answer3.setVisibility(View.VISIBLE);
+                    iv_answer4.setVisibility(View.VISIBLE);
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                        iv_answer1.setImageResource(R.drawable.correct);
+                        // layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    } else {
+                        iv_answer1.setImageResource(R.drawable.wrong);
                     }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer4")){
-                        layout_answer4.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                        iv_answer2.setImageResource(R.drawable.correct);
+                    } else {
+                        iv_answer2.setImageResource(R.drawable.wrong);
                     }
 
-                }*/
-                liner2=1;
-                iv_answer1.setVisibility(View.VISIBLE);
-                iv_answer2.setVisibility(View.VISIBLE);
-                iv_answer3.setVisibility(View.VISIBLE);
-                iv_answer4.setVisibility(View.VISIBLE);
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                        iv_answer3.setImageResource(R.drawable.correct);
+                        // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    } else {
+                        iv_answer3.setImageResource(R.drawable.wrong);
+                    }
 
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
-                    iv_answer1.setImageResource(R.drawable.correct);
-                    // layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                } else {
-                    iv_answer1.setImageResource(R.drawable.wrong);
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                        iv_answer4.setImageResource(R.drawable.correct);
+                        // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    } else {
+                        iv_answer4.setImageResource(R.drawable.wrong);
+                    }
                 }
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
-                    iv_answer2.setImageResource(R.drawable.correct);
-                } else {
-                    iv_answer2.setImageResource(R.drawable.wrong);
-                }
-
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                    iv_answer3.setImageResource(R.drawable.correct);
-                    // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                } else {
-                    iv_answer3.setImageResource(R.drawable.wrong);
-                }
-
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                    iv_answer4.setImageResource(R.drawable.correct);
-                    // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                } else {
-                    iv_answer4.setImageResource(R.drawable.wrong);
-                }
-                if (liner1==1) {
+                if (liner1 == 1) {
                     layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                }else {
+                } else {
                     layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
 
-                if (liner3==1) {
+                if (liner3 == 1) {
                     layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
 
-                }else {
+                } else {
                     layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
-                if (liner4==1) {
+                if (liner4 == 1) {
                     layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                }else {
+                } else {
                     layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
@@ -271,77 +286,76 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                 if (questionsModelList.get(position1).getUseranswered().length() > 0) {
                     return;
                 }
+                if (liner3 == 1) {
 
-                if(answer.equals("")){
+                    return;
+                }
+                if (answer.equals("")) {
                     answer = "answer3";
-                }else {
+                } else {
                     answer = answer + "," + "answer3";
                 }
-                /*if(questionsModelList.get(position1).getCorrectAnswer().equals("answer3")){
-                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                }
-                else {
-                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_red));
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer2")){
-                        layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+
+
+                liner3 = 1;
+                if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
+                    if (answer.split(",").length == 2) {
+                        showparially();
+                        iv_answer1.setVisibility(View.VISIBLE);
+                        iv_answer2.setVisibility(View.VISIBLE);
+                        iv_answer3.setVisibility(View.VISIBLE);
+                        iv_answer4.setVisibility(View.VISIBLE);
                     }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer1")){
-                        layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                } else {
+                    iv_answer1.setVisibility(View.VISIBLE);
+                    iv_answer2.setVisibility(View.VISIBLE);
+                    iv_answer3.setVisibility(View.VISIBLE);
+                    iv_answer4.setVisibility(View.VISIBLE);
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                        iv_answer1.setImageResource(R.drawable.correct);
+                        // layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    } else {
+                        iv_answer1.setImageResource(R.drawable.wrong);
                     }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer4")){
-                        layout_answer4.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                        iv_answer2.setImageResource(R.drawable.correct);
+                        // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    } else {
+                        iv_answer2.setImageResource(R.drawable.wrong);
                     }
 
-                }*/
-                iv_answer1.setVisibility(View.VISIBLE);
-                iv_answer2.setVisibility(View.VISIBLE);
-                iv_answer3.setVisibility(View.VISIBLE);
-                iv_answer4.setVisibility(View.VISIBLE);
-                liner3=1;
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
-                    iv_answer1.setImageResource(R.drawable.correct);
-                    // layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                } else {
-                    iv_answer1.setImageResource(R.drawable.wrong);
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                        iv_answer3.setImageResource(R.drawable.correct);
+
+
+                    } else {
+                        iv_answer3.setImageResource(R.drawable.wrong);
+
+
+                    }
+
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                        iv_answer4.setImageResource(R.drawable.correct);
+                        // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    } else {
+                        iv_answer4.setImageResource(R.drawable.wrong);
+                    }
                 }
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
-                    iv_answer2.setImageResource(R.drawable.correct);
-                    // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                } else {
-                    iv_answer2.setImageResource(R.drawable.wrong);
-                }
-
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                    iv_answer3.setImageResource(R.drawable.correct);
-
-
-                } else {
-                    iv_answer3.setImageResource(R.drawable.wrong);
-
-
-                }
-
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                    iv_answer4.setImageResource(R.drawable.correct);
-                    // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                } else {
-                    iv_answer4.setImageResource(R.drawable.wrong);
-                }
-                if (liner2==1) {
+                if (liner2 == 1) {
                     layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                }else {
+                } else {
                     layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
 
-                if (liner1==1) {
+                if (liner1 == 1) {
                     layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
 
-                }else {
+                } else {
                     layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
-                if (liner4==1) {
+                if (liner4 == 1) {
                     layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                }else {
+                } else {
                     layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
@@ -361,77 +375,72 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                 if (questionsModelList.get(position1).getUseranswered().length() > 0) {
                     return;
                 }
-                if(answer.equals("")){
+                if (liner4 == 1) {
+
+                    return;
+                }
+                if (answer.equals("")) {
                     answer = "answer4";
-                }else {
+                } else {
                     answer = answer + "," + "answer4";
                 }
 
-
-
-               /* if(questionsModelList.get(position1).getCorrectAnswer().equals("answer4")){
-                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                }
-                else {
-                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_red));
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer2")){
-                        layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                liner4 = 1;
+                if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
+                    if (answer.split(",").length == 2) {
+                        showparially();
+                        iv_answer1.setVisibility(View.VISIBLE);
+                        iv_answer2.setVisibility(View.VISIBLE);
+                        iv_answer3.setVisibility(View.VISIBLE);
+                        iv_answer4.setVisibility(View.VISIBLE);
                     }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer3")){
-                        layout_answer3.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                } else {
+                    iv_answer1.setVisibility(View.VISIBLE);
+                    iv_answer2.setVisibility(View.VISIBLE);
+                    iv_answer3.setVisibility(View.VISIBLE);
+                    iv_answer4.setVisibility(View.VISIBLE);
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                        iv_answer1.setImageResource(R.drawable.correct);
+                        // layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    } else {
+                        iv_answer1.setImageResource(R.drawable.wrong);
                     }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer1")){
-                        layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                        iv_answer2.setImageResource(R.drawable.correct);
+                        // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    } else {
+                        iv_answer2.setImageResource(R.drawable.wrong);
                     }
 
-                }*/
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                        iv_answer3.setImageResource(R.drawable.correct);
+                        // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
+                    } else {
+                        iv_answer3.setImageResource(R.drawable.wrong);
+                    }
 
-                iv_answer1.setVisibility(View.VISIBLE);
-                iv_answer2.setVisibility(View.VISIBLE);
-                iv_answer3.setVisibility(View.VISIBLE);
-                iv_answer4.setVisibility(View.VISIBLE);
-                liner4=1;
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
-                    iv_answer1.setImageResource(R.drawable.correct);
-                    // layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                } else {
-                    iv_answer1.setImageResource(R.drawable.wrong);
-                }
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
-                    iv_answer2.setImageResource(R.drawable.correct);
-                    // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                } else {
-                    iv_answer2.setImageResource(R.drawable.wrong);
-                }
-
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                    iv_answer3.setImageResource(R.drawable.correct);
-                    // layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                } else {
-                    iv_answer3.setImageResource(R.drawable.wrong);
-                }
-
-                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                    iv_answer4.setImageResource(R.drawable.correct);
-                } else {
-                    iv_answer4.setImageResource(R.drawable.wrong);
+                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                        iv_answer4.setImageResource(R.drawable.correct);
+                    } else {
+                        iv_answer4.setImageResource(R.drawable.wrong);
+                    }
                 }
                 //  layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                if (liner2==1) {
+                if (liner2 == 1) {
                     layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                }else {
+                } else {
                     layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
 
-                if (liner1==1) {
+                if (liner1 == 1) {
                     layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
 
-                }else {
+                } else {
                     layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
-                if (liner3==1)  {
+                if (liner3 == 1) {
                     layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                }else {
+                } else {
                     layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 }
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
@@ -779,161 +788,162 @@ public class LearningQuestionsActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (tv_next.getText().toString().equals("NEXT")) {
+                    if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
+                        if (answer.split(",").length == 2) {
+                            if (answer.length() > 0) {
+                                updateAnswers();
+                            } else {
+                                int incrpos = position1 + 1;
+                                if (questionsModelList.get(incrpos).getUseranswered().length() > 0) {
+                                    position1 = position1 + 1;
+                                    tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                                    userAnserMethod();
+                                    tv_previous.setVisibility(View.VISIBLE);
+                                    if (position1 < questionsModelList.size()) {
+                                        if (position1 == questionsModelList.size() - 1) {
+                                            tv_next.setText("SUBMIT");
+                                        }
 
-                    if(answer.length()>0){
-                        updateAnswers();
-                    }else {
-                        int incrpos=position1+1;
-                        if (questionsModelList.get(incrpos).getUseranswered().length() > 0) {
-                            position1 = position1 + 1;
-                            tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
-                            userAnserMethod();
-                            tv_previous.setVisibility(View.VISIBLE);
-                            if (position1 < questionsModelList.size()) {
-                                if (position1 == questionsModelList.size() - 1) {
-                                    tv_next.setText("SUBMIT");
-                                }
+                                        tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                                        questionsModel1 = questionsModelList.get(position1);
+                                        questionsModel1.setTotalNoOfQuestions(String.valueOf(questionsModelList.size()));
+                                        questionsModel1.setBlockID(questionsModel1.getCategoryID());
+                                        questionsModel1.setQuestionID(questionsModel1.getId());
+                                        questionsModel1.setCategoryType(type);
+                                        tv_question.setText(questionsModel1.getQuestion());
+                                        tv_answer1.setText(questionsModel1.getAnswer1());
+                                        tv_answer2.setText(questionsModel1.getAnswer2());
+                                        tv_answer3.setText(questionsModel1.getAnswer3());
+                                        tv_answer4.setText(questionsModel1.getAnswer4());
+                                        if (questionsModel1.getUserAnswer().equals("answer1")) {
+                                            iv_answer1.setVisibility(View.VISIBLE);
+                                            iv_answer2.setVisibility(View.VISIBLE);
+                                            iv_answer3.setVisibility(View.VISIBLE);
+                                            iv_answer4.setVisibility(View.VISIBLE);
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                iv_answer1.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer1.setImageResource(R.drawable.wrong);
+                                            }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                iv_answer2.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer2.setImageResource(R.drawable.wrong);
+                                            }
 
-                                tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
-                                questionsModel1 = questionsModelList.get(position1);
-                                questionsModel1.setTotalNoOfQuestions(String.valueOf(questionsModelList.size()));
-                                questionsModel1.setBlockID(questionsModel1.getCategoryID());
-                                questionsModel1.setQuestionID(questionsModel1.getId());
-                                questionsModel1.setCategoryType(type);
-                                tv_question.setText(questionsModel1.getQuestion());
-                                tv_answer1.setText(questionsModel1.getAnswer1());
-                                tv_answer2.setText(questionsModel1.getAnswer2());
-                                tv_answer3.setText(questionsModel1.getAnswer3());
-                                tv_answer4.setText(questionsModel1.getAnswer4());
-                                if (questionsModel1.getUserAnswer().equals("answer1")) {
-                                    iv_answer1.setVisibility(View.VISIBLE);
-                                    iv_answer2.setVisibility(View.VISIBLE);
-                                    iv_answer3.setVisibility(View.VISIBLE);
-                                    iv_answer4.setVisibility(View.VISIBLE);
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
-                                        iv_answer1.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer1.setImageResource(R.drawable.wrong);
-                                    }
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
-                                        iv_answer2.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer2.setImageResource(R.drawable.wrong);
-                                    }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer3.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer3.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                                        iv_answer3.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer3.setImageResource(R.drawable.wrong);
-                                    }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer4.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer4.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                                        iv_answer4.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer4.setImageResource(R.drawable.wrong);
-                                    }
+                                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        } else if (questionsModel1.getUserAnswer().equals("answer2")) {
+                                            iv_answer1.setVisibility(View.VISIBLE);
+                                            iv_answer2.setVisibility(View.VISIBLE);
+                                            iv_answer3.setVisibility(View.VISIBLE);
+                                            iv_answer4.setVisibility(View.VISIBLE);
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                iv_answer1.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer1.setImageResource(R.drawable.wrong);
+                                            }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                iv_answer2.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer2.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                } else if (questionsModel1.getUserAnswer().equals("answer2")) {
-                                    iv_answer1.setVisibility(View.VISIBLE);
-                                    iv_answer2.setVisibility(View.VISIBLE);
-                                    iv_answer3.setVisibility(View.VISIBLE);
-                                    iv_answer4.setVisibility(View.VISIBLE);
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
-                                        iv_answer1.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer1.setImageResource(R.drawable.wrong);
-                                    }
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
-                                        iv_answer2.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer2.setImageResource(R.drawable.wrong);
-                                    }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer3.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer3.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                                        iv_answer3.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer3.setImageResource(R.drawable.wrong);
-                                    }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer4.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer4.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                                        iv_answer4.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer4.setImageResource(R.drawable.wrong);
-                                    }
+                                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        } else if (questionsModel1.getUserAnswer().equals("answer3")) {
+                                            iv_answer1.setVisibility(View.VISIBLE);
+                                            iv_answer2.setVisibility(View.VISIBLE);
+                                            iv_answer3.setVisibility(View.VISIBLE);
+                                            iv_answer4.setVisibility(View.VISIBLE);
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                iv_answer1.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer1.setImageResource(R.drawable.wrong);
+                                            }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                iv_answer2.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer2.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                } else if (questionsModel1.getUserAnswer().equals("answer3")) {
-                                    iv_answer1.setVisibility(View.VISIBLE);
-                                    iv_answer2.setVisibility(View.VISIBLE);
-                                    iv_answer3.setVisibility(View.VISIBLE);
-                                    iv_answer4.setVisibility(View.VISIBLE);
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
-                                        iv_answer1.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer1.setImageResource(R.drawable.wrong);
-                                    }
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
-                                        iv_answer2.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer2.setImageResource(R.drawable.wrong);
-                                    }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer3.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer3.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                                        iv_answer3.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer3.setImageResource(R.drawable.wrong);
-                                    }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer4.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer4.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                                        iv_answer4.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer4.setImageResource(R.drawable.wrong);
-                                    }
+                                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        } else if (questionsModel1.getUserAnswer().equals("answer4")) {
+                                            iv_answer1.setVisibility(View.VISIBLE);
+                                            iv_answer2.setVisibility(View.VISIBLE);
+                                            iv_answer3.setVisibility(View.VISIBLE);
+                                            iv_answer4.setVisibility(View.VISIBLE);
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                iv_answer1.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer1.setImageResource(R.drawable.wrong);
+                                            }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                iv_answer2.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer2.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                } else if (questionsModel1.getUserAnswer().equals("answer4")) {
-                                    iv_answer1.setVisibility(View.VISIBLE);
-                                    iv_answer2.setVisibility(View.VISIBLE);
-                                    iv_answer3.setVisibility(View.VISIBLE);
-                                    iv_answer4.setVisibility(View.VISIBLE);
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
-                                        iv_answer1.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer1.setImageResource(R.drawable.wrong);
-                                    }
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
-                                        iv_answer2.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer2.setImageResource(R.drawable.wrong);
-                                    }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer3.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer3.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                                        iv_answer3.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer3.setImageResource(R.drawable.wrong);
-                                    }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer4.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer4.setImageResource(R.drawable.wrong);
+                                            }
 
-                                    if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
-                                        iv_answer4.setImageResource(R.drawable.correct);
-                                    } else {
-                                        iv_answer4.setImageResource(R.drawable.wrong);
-                                    }
-
-                                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                } /*else {
+                                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        } /*else {
                                 iv_answer1.setVisibility(View.GONE);
                                 iv_answer2.setVisibility(View.GONE);
                                 iv_answer3.setVisibility(View.GONE);
@@ -943,23 +953,216 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
                                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                             }*/
-                                Glide.with(getApplicationContext())
-                                        .load(questionsModel1.getImage())
-                                        .into(iv_question);
+                                        Glide.with(getApplicationContext())
+                                                .load(questionsModel1.getImage())
+                                                .into(iv_question);
 
 
+                                    }
+                                } else {
+                                    liner1 = 0;
+                                    liner2 = 0;
+                                    liner3 = 0;
+                                    liner4 = 0;
+
+                                    tv_previous.setVisibility(View.VISIBLE);
+                                    if (answer.equals("")) {
+                                        tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                                        position1 = position1 + 1;
+                                        if (position1 < questionsModelList.size()) {
+                                            if (position1 == questionsModelList.size() - 1) {
+                                                tv_next.setText("SUBMIT");
+                                            }
+
+                                            tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                                            questionsModel1 = questionsModelList.get(position1);
+                                            questionsModel1.setTotalNoOfQuestions(String.valueOf(questionsModelList.size()));
+                                            questionsModel1.setBlockID(questionsModel1.getCategoryID());
+                                            questionsModel1.setQuestionID(questionsModel1.getId());
+                                            questionsModel1.setCategoryType(type);
+                                            tv_question.setText(questionsModel1.getQuestion());
+                                            tv_answer1.setText(questionsModel1.getAnswer1());
+                                            tv_answer2.setText(questionsModel1.getAnswer2());
+                                            tv_answer3.setText(questionsModel1.getAnswer3());
+                                            tv_answer4.setText(questionsModel1.getAnswer4());
+                                            if (questionsModel1.getUserAnswer().equals("answer1")) {
+                                                iv_answer1.setVisibility(View.VISIBLE);
+                                                iv_answer2.setVisibility(View.VISIBLE);
+                                                iv_answer3.setVisibility(View.VISIBLE);
+                                                iv_answer4.setVisibility(View.VISIBLE);
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                    iv_answer1.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer1.setImageResource(R.drawable.wrong);
+                                                }
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                    iv_answer2.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer2.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                    iv_answer3.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer3.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                    iv_answer4.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer4.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            } else if (questionsModel1.getUserAnswer().equals("answer2")) {
+                                                iv_answer1.setVisibility(View.VISIBLE);
+                                                iv_answer2.setVisibility(View.VISIBLE);
+                                                iv_answer3.setVisibility(View.VISIBLE);
+                                                iv_answer4.setVisibility(View.VISIBLE);
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                    iv_answer1.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer1.setImageResource(R.drawable.wrong);
+                                                }
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                    iv_answer2.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer2.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                    iv_answer3.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer3.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                    iv_answer4.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer4.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            } else if (questionsModel1.getUserAnswer().equals("answer3")) {
+                                                iv_answer1.setVisibility(View.VISIBLE);
+                                                iv_answer2.setVisibility(View.VISIBLE);
+                                                iv_answer3.setVisibility(View.VISIBLE);
+                                                iv_answer4.setVisibility(View.VISIBLE);
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                    iv_answer1.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer1.setImageResource(R.drawable.wrong);
+                                                }
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                    iv_answer2.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer2.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                    iv_answer3.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer3.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                    iv_answer4.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer4.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            } else if (questionsModel1.getUserAnswer().equals("answer4")) {
+                                                iv_answer1.setVisibility(View.VISIBLE);
+                                                iv_answer2.setVisibility(View.VISIBLE);
+                                                iv_answer3.setVisibility(View.VISIBLE);
+                                                iv_answer4.setVisibility(View.VISIBLE);
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                    iv_answer1.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer1.setImageResource(R.drawable.wrong);
+                                                }
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                    iv_answer2.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer2.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                    iv_answer3.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer3.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                    iv_answer4.setImageResource(R.drawable.correct);
+                                                } else {
+                                                    iv_answer4.setImageResource(R.drawable.wrong);
+                                                }
+
+                                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            } else {
+                                                iv_answer1.setVisibility(View.GONE);
+                                                iv_answer2.setVisibility(View.GONE);
+                                                iv_answer3.setVisibility(View.GONE);
+                                                iv_answer4.setVisibility(View.GONE);
+                                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            }
+                                            Glide.with(getApplicationContext())
+                                                    .load(questionsModel1.getImage())
+                                                    .into(iv_question);
+
+
+                                        }
+
+                                    } else {
+                                        updateAnswers();
+
+                                    }
+
+
+                                }
                             }
-                        }
-                        else {
-                            liner1=0;
-                            liner2=0;
-                            liner3=0;
-                            liner4=0;
+                        } else {
 
-                            tv_previous.setVisibility(View.VISIBLE);
-                            if(answer.equals("")){
-                                tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                            String landtring=getString(R.string.give_to_answer);
+                            if(language_id.equals("1")){
+                                landtring=getString(R.string.give_detus);
+                            }else if(language_id.equals("2")){
+                                landtring=getString(R.string.give_franc);
+                            }else if(language_id.equals("3")){
+                                landtring=getString(R.string.give_to_answer);
+                            }else if(language_id.equals("4")){
+                                landtring=getString(R.string.give_italins);
+                            }
+                            showAlertDialog(landtring);
+
+                        }
+                    }else {
+                        if (answer.length() > 0) {
+                            updateAnswers();
+                        } else {
+                            int incrpos = position1 + 1;
+                            if (questionsModelList.get(incrpos).getUseranswered().length() > 0) {
                                 position1 = position1 + 1;
+                                tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                                userAnserMethod();
+                                tv_previous.setVisibility(View.VISIBLE);
                                 if (position1 < questionsModelList.size()) {
                                     if (position1 == questionsModelList.size() - 1) {
                                         tv_next.setText("SUBMIT");
@@ -1104,45 +1307,249 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                                         layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                                         layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
                                         layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    } else {
-                                        iv_answer1.setVisibility(View.GONE);
-                                        iv_answer2.setVisibility(View.GONE);
-                                        iv_answer3.setVisibility(View.GONE);
-                                        iv_answer4.setVisibility(View.GONE);
-                                        layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                        layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                        layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                        layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                                    }
+                                    } /*else {
+                                iv_answer1.setVisibility(View.GONE);
+                                iv_answer2.setVisibility(View.GONE);
+                                iv_answer3.setVisibility(View.GONE);
+                                iv_answer4.setVisibility(View.GONE);
+                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                            }*/
                                     Glide.with(getApplicationContext())
                                             .load(questionsModel1.getImage())
                                             .into(iv_question);
 
 
                                 }
+                            } else {
+                                liner1 = 0;
+                                liner2 = 0;
+                                liner3 = 0;
+                                liner4 = 0;
 
-                            }else {
-                                updateAnswers();
+                                tv_previous.setVisibility(View.VISIBLE);
+                                if (answer.equals("")) {
+                                    tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                                    position1 = position1 + 1;
+                                    if (position1 < questionsModelList.size()) {
+                                        if (position1 == questionsModelList.size() - 1) {
+                                            tv_next.setText("SUBMIT");
+                                        }
+
+                                        tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                                        questionsModel1 = questionsModelList.get(position1);
+                                        questionsModel1.setTotalNoOfQuestions(String.valueOf(questionsModelList.size()));
+                                        questionsModel1.setBlockID(questionsModel1.getCategoryID());
+                                        questionsModel1.setQuestionID(questionsModel1.getId());
+                                        questionsModel1.setCategoryType(type);
+                                        tv_question.setText(questionsModel1.getQuestion());
+                                        tv_answer1.setText(questionsModel1.getAnswer1());
+                                        tv_answer2.setText(questionsModel1.getAnswer2());
+                                        tv_answer3.setText(questionsModel1.getAnswer3());
+                                        tv_answer4.setText(questionsModel1.getAnswer4());
+                                        if (questionsModel1.getUserAnswer().equals("answer1")) {
+                                            iv_answer1.setVisibility(View.VISIBLE);
+                                            iv_answer2.setVisibility(View.VISIBLE);
+                                            iv_answer3.setVisibility(View.VISIBLE);
+                                            iv_answer4.setVisibility(View.VISIBLE);
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                iv_answer1.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer1.setImageResource(R.drawable.wrong);
+                                            }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                iv_answer2.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer2.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer3.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer3.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer4.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer4.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        } else if (questionsModel1.getUserAnswer().equals("answer2")) {
+                                            iv_answer1.setVisibility(View.VISIBLE);
+                                            iv_answer2.setVisibility(View.VISIBLE);
+                                            iv_answer3.setVisibility(View.VISIBLE);
+                                            iv_answer4.setVisibility(View.VISIBLE);
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                iv_answer1.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer1.setImageResource(R.drawable.wrong);
+                                            }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                iv_answer2.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer2.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer3.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer3.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer4.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer4.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        } else if (questionsModel1.getUserAnswer().equals("answer3")) {
+                                            iv_answer1.setVisibility(View.VISIBLE);
+                                            iv_answer2.setVisibility(View.VISIBLE);
+                                            iv_answer3.setVisibility(View.VISIBLE);
+                                            iv_answer4.setVisibility(View.VISIBLE);
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                iv_answer1.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer1.setImageResource(R.drawable.wrong);
+                                            }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                iv_answer2.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer2.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer3.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer3.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer4.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer4.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        } else if (questionsModel1.getUserAnswer().equals("answer4")) {
+                                            iv_answer1.setVisibility(View.VISIBLE);
+                                            iv_answer2.setVisibility(View.VISIBLE);
+                                            iv_answer3.setVisibility(View.VISIBLE);
+                                            iv_answer4.setVisibility(View.VISIBLE);
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+                                                iv_answer1.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer1.setImageResource(R.drawable.wrong);
+                                            }
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+                                                iv_answer2.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer2.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer3.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer3.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+                                                iv_answer4.setImageResource(R.drawable.correct);
+                                            } else {
+                                                iv_answer4.setImageResource(R.drawable.wrong);
+                                            }
+
+                                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        } else {
+                                            iv_answer1.setVisibility(View.GONE);
+                                            iv_answer2.setVisibility(View.GONE);
+                                            iv_answer3.setVisibility(View.GONE);
+                                            iv_answer4.setVisibility(View.GONE);
+                                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        }
+                                        Glide.with(getApplicationContext())
+                                                .load(questionsModel1.getImage())
+                                                .into(iv_question);
+
+
+                                    }
+
+                                } else {
+                                    updateAnswers();
+
+                                }
+
 
                             }
-
-
                         }
                     }
 
+
+
                 } else {
-                    if(answer.equals("")){
-                        Intent i = new Intent(getApplicationContext(), ResultActivity.class);
-                        i.putExtra("questionModelList", (Serializable) questionsModelList);
-                        i.putExtra("ScreenFrom", fromScreen);
-                        i.putExtra("CategoryID", categoryID);
-                        i.putExtra("blockID", CategoryIDD);
-                        i.putExtra("type", type);
-                        startActivity(i);
+                    if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
+                        if (answer.split(",").length == 2) {
+                            if (answer.equals("")) {
+                                Intent i = new Intent(getApplicationContext(), ResultActivity.class);
+                                i.putExtra("questionModelList", (Serializable) questionsModelList);
+                                i.putExtra("ScreenFrom", fromScreen);
+                                i.putExtra("CategoryID", categoryID);
+                                i.putExtra("blockID", CategoryIDD);
+                                i.putExtra("type", type);
+                                startActivity(i);
+                            } else {
+                                questionsModel1 = questionsModelList.get(position1);
+                                updateAnswersFinalUpdate();
+                            }
+                        }else {
+                            String landtring=getString(R.string.give_to_answer);
+                            if(language_id.equals("1")){
+                                landtring=getString(R.string.give_detus);
+                            }else if(language_id.equals("2")){
+                                landtring=getString(R.string.give_franc);
+                            }else if(language_id.equals("3")){
+                                landtring=getString(R.string.give_to_answer);
+                            }else if(language_id.equals("4")){
+                                landtring=getString(R.string.give_italins);
+                            }
+                                showAlertDialog(landtring);
+
+                        }
                     }else {
-                        questionsModel1 = questionsModelList.get(position1);
-                        updateAnswersFinalUpdate();
+                        if (answer.equals("")) {
+                            Intent i = new Intent(getApplicationContext(), ResultActivity.class);
+                            i.putExtra("questionModelList", (Serializable) questionsModelList);
+                            i.putExtra("ScreenFrom", fromScreen);
+                            i.putExtra("CategoryID", categoryID);
+                            i.putExtra("blockID", CategoryIDD);
+                            i.putExtra("type", type);
+                            startActivity(i);
+                        } else {
+                            questionsModel1 = questionsModelList.get(position1);
+                            updateAnswersFinalUpdate();
+                        }
                     }
+
 
 
                 }
@@ -1200,12 +1607,12 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                             if (object.has("status")) {
                                 String status = object.getString("status");
                                 if (status.equals("success")) {
-                                    liner1=0;
-                                    liner2=0;
-                                    liner3=0;
-                                    liner4=0;
-                                   position1 =position1+1;
-                                    answer="";
+                                    liner1 = 0;
+                                    liner2 = 0;
+                                    liner3 = 0;
+                                    liner4 = 0;
+                                    position1 = position1 + 1;
+                                    answer = "";
                                     if (position1 < questionsModelList.size()) {
                                         if (position1 == questionsModelList.size() - 1) {
                                             tv_next.setText("SUBMIT");
@@ -1404,7 +1811,7 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                 MyData.put("language_id", language_id);
                 MyData.put("user_id", userID);
                 MyData.put("question_id", questionsModel1.getId());
-              //  MyData.put("answer", questionsModel1.getUserAnswer());
+                //  MyData.put("answer", questionsModel1.getUserAnswer());
                 MyData.put("answer", answer);
                 MyData.put("datetime", currentDate + " " + currentTime);
                 Log.i("ResulrtPOst", MyData.toString());
@@ -1415,6 +1822,7 @@ public class LearningQuestionsActivity extends AppCompatActivity {
         requestQueue.add(MyStringRequest);
 
     }
+
     public void updateAnswersFinalUpdate() {
         final ProgressDialog pDialog = new ProgressDialog(LearningQuestionsActivity.this);
         pDialog.setMessage("Updating..");
@@ -2015,7 +2423,7 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                 MyData.put("token", token);
                 MyData.put("category_id", categoryID);
                 MyData.put("reg_datetime", currentDate + " " + currentTime);
-                Log.i("theories_quest",MyData.toString());
+                Log.i("theories_quest", MyData.toString());
                 return MyData;
             }
         };
@@ -2229,50 +2637,56 @@ public class LearningQuestionsActivity extends AppCompatActivity {
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
             }
-            if (questionsModelList.get(position1).getUseranswered().equals("answer1,answer2")||questionsModelList.get(position1).getUseranswered().equals("answer2,answer1")) {
+            if (questionsModelList.get(position1).getUseranswered().equals("answer1,answer2") || questionsModelList.get(position1).getUseranswered().equals("answer2,answer1")) {
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
             }
 
-            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3")||questionsModelList.get(position1).getUseranswered().equals("answer3,answer1")) {
+            if (questionsModelList.get(position1).getUseranswered().equals("answer1,answer3") || questionsModelList.get(position1).getUseranswered().equals("answer3,answer1")) {
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
             }
-            if (questionsModelList.get(position1).getUseranswered().equals("answer1,answer4")||questionsModelList.get(position1).getUseranswered().equals("answer4,answer1")) {
+            if (questionsModelList.get(position1).getUseranswered().equals("answer1,answer4") || questionsModelList.get(position1).getUseranswered().equals("answer4,answer1")) {
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-            } if (questionsModelList.get(position1).getUseranswered().equals("answer2,answer3")||questionsModelList.get(position1).getUseranswered().equals("answer3,answer2")) {
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer2,answer3") || questionsModelList.get(position1).getUseranswered().equals("answer3,answer2")) {
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-            } if (questionsModelList.get(position1).getUseranswered().equals("answer2,answer4")||questionsModelList.get(position1).getUseranswered().equals("answer4,answer2")) {
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer2,answer4") || questionsModelList.get(position1).getUseranswered().equals("answer4,answer2")) {
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-            } if (questionsModelList.get(position1).getUseranswered().equals("answer3,answer2")||questionsModelList.get(position1).getUseranswered().equals("answer3,answer2")) {
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer3,answer2") || questionsModelList.get(position1).getUseranswered().equals("answer3,answer2")) {
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-            } if (questionsModelList.get(position1).getUseranswered().equals("answer3,answer4")||questionsModelList.get(position1).getUseranswered().equals("answer4,answer3")) {
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer3,answer4") || questionsModelList.get(position1).getUseranswered().equals("answer4,answer3")) {
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-            }if (questionsModelList.get(position1).getUseranswered().equals("answer4,answer2")||questionsModelList.get(position1).getUseranswered().equals("answer2,answer4")) {
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer4,answer2") || questionsModelList.get(position1).getUseranswered().equals("answer2,answer4")) {
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-            }if (questionsModelList.get(position1).getUseranswered().equals("answer4,answer3")||questionsModelList.get(position1).getUseranswered().equals("answer3,answer4")) {
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer4,answer3") || questionsModelList.get(position1).getUseranswered().equals("answer3,answer4")) {
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
@@ -2312,5 +2726,29 @@ public class LearningQuestionsActivity extends AppCompatActivity {
 
     }
 
+    public void showparially() {
+        if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4")) {
+            iv_answer1.setImageResource(R.drawable.correct);
+        } else {
+            iv_answer1.setImageResource(R.drawable.wrong);
+        }
+        if (questionsModelList.get(position1).getCorrectAnswer().equals("answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer2") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4")) {
+            iv_answer2.setImageResource(R.drawable.correct);
+        } else {
+            iv_answer2.setImageResource(R.drawable.wrong);
+        }
+
+        if (questionsModelList.get(position1).getCorrectAnswer().equals("answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer3") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+            iv_answer3.setImageResource(R.drawable.correct);
+        } else {
+            iv_answer3.setImageResource(R.drawable.wrong);
+        }
+
+        if (questionsModelList.get(position1).getCorrectAnswer().equals("answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer2,answer4") || questionsModelList.get(position1).getCorrectAnswer().equals("answer3,answer4")) {
+            iv_answer4.setImageResource(R.drawable.correct);
+        } else {
+            iv_answer4.setImageResource(R.drawable.wrong);
+        }
+    }
 
 }

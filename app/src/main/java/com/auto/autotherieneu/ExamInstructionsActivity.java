@@ -70,7 +70,7 @@ public class ExamInstructionsActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Intent i = new Intent(getApplicationContext(),QuestionsActivity.class);
+                Intent i = new Intent(getApplicationContext(),ExamQuestionsActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("CategoryID",categoryID);
                 i.putExtra("CategoryName",categoryName);
@@ -175,5 +175,7 @@ public class ExamInstructionsActivity extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-
+    public void backPressed(View view) {
+        onBackPressed();
+    }
 }

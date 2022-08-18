@@ -1,11 +1,5 @@
 package com.auto.autotherieneu;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ResultActivity extends AppCompatActivity {
+public class ExamResultActivity extends AppCompatActivity {
 
     TextView tv_correct_answers, related_text;
     TextView tv_total_questions, tv_answered_questions, tv_correct_answer, tv_incorrect_answer;
@@ -62,7 +62,7 @@ public class ResultActivity extends AppCompatActivity {
     ChapterModel chapterModel = new ChapterModel();
     String language_id;
     String allTye = "";
-
+    String examId="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +86,7 @@ public class ResultActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview_chapters);
 
         questionsModelList = (List<QuestionsModel>) getIntent().getSerializableExtra("questionModelList");
+        examId=questionsModelList.get(0).getExamid();
         pageFrom = getIntent().getStringExtra("ScreenFrom");
         categoryID = getIntent().getStringExtra("CategoryID");
         if (getIntent().getStringExtra("blockID") != null) {
@@ -135,11 +136,11 @@ public class ResultActivity extends AppCompatActivity {
         //  tv_incorrect_answer.setText(String.valueOf(correctAnswers-answeredQuestions));
 
         //getChapters();
-        getExamResult();
+        getExamResultNew();
     }
 
     public void getChapters() {
-        final ProgressDialog pDialog = new ProgressDialog(ResultActivity.this);
+        final ProgressDialog pDialog = new ProgressDialog(ExamResultActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -149,7 +150,7 @@ public class ResultActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         final String currentTime = df.format(Calendar.getInstance().getTime());
 
-        RequestQueue requestQueue = Volley.newRequestQueue(ResultActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(ExamResultActivity.this);
         requestQueue.getCache().clear();
 
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
@@ -185,7 +186,7 @@ public class ResultActivity extends AppCompatActivity {
                                         chapterModelList.add(chapterModel);
                                     }
 
-                                    ChapterAdapter notificationAdapter = new ChapterAdapter(ResultActivity.this, chapterModelList);
+                                    ChapterAdapter notificationAdapter = new ChapterAdapter(ExamResultActivity.this, chapterModelList);
                                     LinearLayoutManager horizontalLayoutManager1 = new LinearLayoutManager(getApplicationContext());
                                     recyclerView.setLayoutManager(horizontalLayoutManager1);
                                     recyclerView.setAdapter(notificationAdapter);
@@ -239,7 +240,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void showAlertDialog(String message) {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ResultActivity.this);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ExamResultActivity.this);
         alertDialogBuilder.setMessage(message);
         alertDialogBuilder.setTitle("Auto Therie neu");
         alertDialogBuilder.setCancelable(false);
@@ -271,16 +272,16 @@ public class ResultActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public ChapterAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_chapter_row, parent, false);
 
-            return new ChapterAdapter.MyViewHolder(itemView);
+            return new MyViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final ChapterAdapter.MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
             final ChapterModel chapterModel = chapterModelList.get(position);
             holder.tv_title.setText(chapterModel.getChapterName());
             holder.tv_questions.setText("No.of Questions : " + chapterModel.getNumberOfQuestions());
@@ -295,19 +296,12 @@ public class ResultActivity extends AppCompatActivity {
             holder.linearLayoutContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(context,LearningQuestionsActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    i.putExtra("CategoryID",categoryID);
-                    i.putExtra("CategoryIDD",chapterModel.getId());
-                    i.putExtra("CategoryName",chapterModel.getChapterName());
-                    i.putExtra("Type",allTye);
-                    i.putExtra("FromScreen","Learning");
 
-                    /*Intent i = new Intent(context, ExamInstructionsActivity.class);
+                    Intent i = new Intent(context, ExamInstructionsActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.putExtra("CategoryID", chapterModel.getId());
                     i.putExtra("CategoryName", chapterModel.getChapterName());
-                    i.putExtra("FromScreen", "Learning");*/
+                    i.putExtra("FromScreen", "Practice");
                     context.startActivity(i);
                 }
             });
@@ -369,8 +363,8 @@ public class ResultActivity extends AppCompatActivity {
 
     }
 
-    public void getExamResult() {
-        final ProgressDialog pDialog = new ProgressDialog(ResultActivity.this);
+    public void getExamResultNew() {
+        final ProgressDialog pDialog = new ProgressDialog(ExamResultActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -380,7 +374,7 @@ public class ResultActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         final String currentTime = df.format(Calendar.getInstance().getTime());
 
-        RequestQueue requestQueue = Volley.newRequestQueue(ResultActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(ExamResultActivity.this);
         requestQueue.getCache().clear();
 
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
@@ -416,13 +410,14 @@ public class ResultActivity extends AppCompatActivity {
                                             chapterModelList.add(chapterModel);
                                         }
 
-                                        ChapterAdapter notificationAdapter = new ChapterAdapter(ResultActivity.this, chapterModelList);
+                                        ChapterAdapter notificationAdapter = new ChapterAdapter(ExamResultActivity.this, chapterModelList);
                                         LinearLayoutManager horizontalLayoutManager1 = new LinearLayoutManager(getApplicationContext());
                                         recyclerView.setLayoutManager(horizontalLayoutManager1);
                                         recyclerView.setAdapter(notificationAdapter);
                                     }else{
                                         related_text.setVisibility(View.GONE);
                                     }
+
                                     }
                                     String totalnoofquestion = object.getString("totalnoofquestion");
                                     String attend_questions = object.getString("attend_questions");
@@ -462,7 +457,124 @@ public class ResultActivity extends AppCompatActivity {
         }) {
             protected Map<String, String> getParams() {
                 Map<String, String> MyData = new HashMap<String, String>();
-                MyData.put("method", "exam_list_and_result");
+                MyData.put("method", "exam_list_and_examresult");
+                MyData.put("token", token);
+                MyData.put("examid", examId);
+                if(!allTye.equals("")){
+                    MyData.put("type", allTye);
+                }
+
+                MyData.put("language_id", language_id);
+                MyData.put("user_id", userID);
+                if(blockID!=null){
+                    MyData.put("block_id", blockID);
+                }
+
+                Log.i("exam_list_and_result", MyData.toString());
+                return MyData;
+            }
+        };
+
+        requestQueue.add(MyStringRequest);
+
+    }
+
+
+    public void getExamResult() {
+        final ProgressDialog pDialog = new ProgressDialog(ExamResultActivity.this);
+        pDialog.setMessage("Getting Details..");
+        pDialog.setCancelable(false);
+        pDialog.setTitle("");
+        pDialog.show();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        final String currentDate = sdf.format(new Date());
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        final String currentTime = df.format(Calendar.getInstance().getTime());
+
+        RequestQueue requestQueue = Volley.newRequestQueue(ExamResultActivity.this);
+        requestQueue.getCache().clear();
+
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+                Log.d("Response", response);
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response.trim());
+                    if (jsonObject.has("response")) {
+
+                        JSONArray responseArray = jsonObject.getJSONArray("response");
+                        JSONObject object = responseArray.getJSONObject(0);
+                        if (responseArray.length() > 0) {
+
+                            if (object.has("status")) {
+                                String status = object.getString("status");
+                                if (status.equals("success")) {
+
+                                    JSONArray array = object.getJSONArray("practice_category_details");
+                                    if (array.length() > 0) {
+                                        for (int i = 0; i < array.length(); i++) {
+                                            JSONObject jsonObject1 = array.getJSONObject(i);
+                                            chapterModel = new ChapterModel();
+                                            chapterModel.setId(jsonObject1.getString("id"));
+                                            chapterModel.setChapterName(jsonObject1.getString("category_name"));
+                                            chapterModel.setImage(jsonObject1.getString("image"));
+                                            chapterModel.setNumberOfQuestions(jsonObject1.getString("no_of_questions"));
+
+                                            chapterModelList.add(chapterModel);
+                                        }
+
+                                        ChapterAdapter notificationAdapter = new ChapterAdapter(ExamResultActivity.this, chapterModelList);
+                                        LinearLayoutManager horizontalLayoutManager1 = new LinearLayoutManager(getApplicationContext());
+                                        recyclerView.setLayoutManager(horizontalLayoutManager1);
+                                        recyclerView.setAdapter(notificationAdapter);
+                                    }else{
+                                        related_text.setVisibility(View.GONE);
+                                    }
+
+                                    }
+                                    String totalnoofquestion = object.getString("totalnoofquestion");
+                                    String attend_questions = object.getString("attend_questions");
+                                    String not_attend_questions = object.getString("not_attend_questions");
+                                    String correct_answer = object.getString("correct_answer");
+                                    String wrong_answer = object.getString("wrong_answer");
+                                    tv_total_questions.setText(totalnoofquestion);
+                                    tv_correct_answer.setText(correct_answer);
+                                    tv_answered_questions.setText(attend_questions);
+                                    tv_incorrect_answer.setText(wrong_answer);
+                                } else {
+                                    showAlertDialog(object.getString("message"));
+                                }
+                            } else {
+                                showAlertDialog(object.getString("message"));
+                            }
+                        }
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if (pDialog.isShowing()) {
+                    pDialog.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //This code is executed if there is an error.
+                pDialog.dismiss();
+                String errorMessage = StringConstants.ErrorMessage(error);
+
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("method", "exam_list_and_examresult");
                 MyData.put("token", token);
                 MyData.put("category_id", categoryID);
                 if(!allTye.equals("")){

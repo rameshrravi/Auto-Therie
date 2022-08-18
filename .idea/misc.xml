@@ -3,26 +3,39 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/drawable/side_nav_bar.xml" value="0.1515" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/drawable/side_nav_bar_blue.xml" value="0.1515" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_answer.xml" value="0.20092592592592592" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_easy_car_theories.xml" value="0.18854166666666666" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_exam_instructions.xml" value="0.16574074074074074" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_home_french.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_home_germen.xml" value="0.20416666666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_home_italian.xml" value="0.20416666666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_homepage.xml" value="0.25" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_homepage_italian.xml" value="0.20416666666666666" />
-        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning_blocks.xml" value="0.18854166666666666" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning.xml" value="0.20416666666666666" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning_blocks.xml" value="0.25" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning_french.xml" value="0.20092592592592592" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning_gemany.xml" value="0.20092592592592592" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning_italian.xml" value="0.17604166666666668" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning_new.xml" value="0.25" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning_questions.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
-        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_result.xml" value="0.25" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_practice.xml" value="0.16574074074074074" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_questions.xml" value="0.20416666666666666" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_result.xml" value="0.22" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_signal_description.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_signal_details.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_theory_questions.xml" value="0.33" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_theory_questions1.xml" value="0.18854166666666666" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_wrong.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/app_bar_homepage.xml" value="0.1828125" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_chapter_row.xml" value="0.14479166666666668" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_easy_car_theories_row.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_easy_theory_description_row.xml" value="0.33" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_learning_row.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_questions_row.xml" value="0.2" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_signal_details_row.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_signas_row.xml" value="0.20416666666666666" />
@@ -35,5 +48,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.5" />
+      </ProjectState>
+    </option>
   </component>
 </project>

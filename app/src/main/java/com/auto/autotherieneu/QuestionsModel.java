@@ -19,6 +19,24 @@ public class QuestionsModel implements Serializable {
     String blockID;
     String totalNoOfQuestions;
     String useranswered;
+    String examid;
+    String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getExamid() {
+        return examid;
+    }
+
+    public void setExamid(String examid) {
+        this.examid = examid;
+    }
 
     public String getCategory() {
         return category;

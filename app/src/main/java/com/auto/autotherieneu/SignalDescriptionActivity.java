@@ -3,6 +3,7 @@ package com.auto.autotherieneu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -110,7 +111,8 @@ public class SignalDescriptionActivity extends AppCompatActivity {
                                 String status = object.getString("status");
                                 if(status.equals("success")){
                                     //tv_description.setText(object.getString("description"));
-                                    tv_description.setText((Html.fromHtml(Html.fromHtml(object.getString("description")).toString())));
+                                    tv_description.setText(HtmlCompat.fromHtml(object.getString("description"), 0));
+                                    //tv_description.setText((Html.fromHtml(Html.fromHtml(object.getString("description")).toString())));
                                     JSONArray array= object.getJSONArray("signals_images");
                                     chapterModelList=new ArrayList<>();
                                     for(int i=0;i<array.length();i++){

@@ -16,4 +16,8 @@
     <string name="title_activity_homepage_german">HomepageGermanActivity</string>
     <string name="title_activity_homepage_french">HomepageFrenchActivity</string>
     <string name="title_activity_homepage_italian">HomepageItalianActivity</string>
+    <string name="give_to_answer">Give two Answers</string>
+    <string name="give_italins">Dare due risposte</string>
+    <string name="give_franc">Donner deux réponses</string>
+    <string name="give_detus">Geben sie zwei Antworten</string>
 </resources>

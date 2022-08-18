@@ -1,11 +1,5 @@
 package com.auto.autotherieneu;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ResultActivity extends AppCompatActivity {
+    public class AfterLearingResultActivity extends AppCompatActivity {
 
     TextView tv_correct_answers, related_text;
     TextView tv_total_questions, tv_answered_questions, tv_correct_answer, tv_incorrect_answer;
@@ -139,7 +139,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void getChapters() {
-        final ProgressDialog pDialog = new ProgressDialog(ResultActivity.this);
+        final ProgressDialog pDialog = new ProgressDialog(AfterLearingResultActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -149,7 +149,7 @@ public class ResultActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         final String currentTime = df.format(Calendar.getInstance().getTime());
 
-        RequestQueue requestQueue = Volley.newRequestQueue(ResultActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(AfterLearingResultActivity.this);
         requestQueue.getCache().clear();
 
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
@@ -185,7 +185,7 @@ public class ResultActivity extends AppCompatActivity {
                                         chapterModelList.add(chapterModel);
                                     }
 
-                                    ChapterAdapter notificationAdapter = new ChapterAdapter(ResultActivity.this, chapterModelList);
+                                    ChapterAdapter notificationAdapter = new ChapterAdapter(AfterLearingResultActivity.this, chapterModelList);
                                     LinearLayoutManager horizontalLayoutManager1 = new LinearLayoutManager(getApplicationContext());
                                     recyclerView.setLayoutManager(horizontalLayoutManager1);
                                     recyclerView.setAdapter(notificationAdapter);
@@ -239,7 +239,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void showAlertDialog(String message) {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ResultActivity.this);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AfterLearingResultActivity.this);
         alertDialogBuilder.setMessage(message);
         alertDialogBuilder.setTitle("Auto Therie neu");
         alertDialogBuilder.setCancelable(false);
@@ -271,16 +271,16 @@ public class ResultActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public ChapterAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_chapter_row, parent, false);
 
-            return new ChapterAdapter.MyViewHolder(itemView);
+            return new MyViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final ChapterAdapter.MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
             final ChapterModel chapterModel = chapterModelList.get(position);
             holder.tv_title.setText(chapterModel.getChapterName());
             holder.tv_questions.setText("No.of Questions : " + chapterModel.getNumberOfQuestions());
@@ -370,7 +370,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void getExamResult() {
-        final ProgressDialog pDialog = new ProgressDialog(ResultActivity.this);
+        final ProgressDialog pDialog = new ProgressDialog(AfterLearingResultActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -380,7 +380,7 @@ public class ResultActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         final String currentTime = df.format(Calendar.getInstance().getTime());
 
-        RequestQueue requestQueue = Volley.newRequestQueue(ResultActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(AfterLearingResultActivity.this);
         requestQueue.getCache().clear();
 
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
@@ -416,7 +416,7 @@ public class ResultActivity extends AppCompatActivity {
                                             chapterModelList.add(chapterModel);
                                         }
 
-                                        ChapterAdapter notificationAdapter = new ChapterAdapter(ResultActivity.this, chapterModelList);
+                                        ChapterAdapter notificationAdapter = new ChapterAdapter(AfterLearingResultActivity.this, chapterModelList);
                                         LinearLayoutManager horizontalLayoutManager1 = new LinearLayoutManager(getApplicationContext());
                                         recyclerView.setLayoutManager(horizontalLayoutManager1);
                                         recyclerView.setAdapter(notificationAdapter);
@@ -464,18 +464,16 @@ public class ResultActivity extends AppCompatActivity {
                 Map<String, String> MyData = new HashMap<String, String>();
                 MyData.put("method", "exam_list_and_result");
                 MyData.put("token", token);
-                MyData.put("category_id", categoryID);
+                MyData.put("category_id", questionsModelList.get(0).getCategoryID());
                 if(!allTye.equals("")){
                     MyData.put("type", allTye);
                 }
-
                 MyData.put("language_id", language_id);
                 MyData.put("user_id", userID);
-                if(blockID!=null){
-                    MyData.put("block_id", blockID);
-                }
+                MyData.put("block_id", questionsModelList.get(0).getBlockID());
 
-                Log.i("exam_list_and_result", MyData.toString());
+
+                Log.i("exam_list_and_fter", MyData.toString());
                 return MyData;
             }
         };

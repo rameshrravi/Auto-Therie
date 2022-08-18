@@ -1,11 +1,5 @@
 package com.auto.autotherieneu;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class QuestionsActivity extends AppCompatActivity {
+public class ExamQuestionsActivity extends AppCompatActivity {
 
     List<QuestionsModel> questionsModelList = new ArrayList<>();
     QuestionsModel questionsModel = new QuestionsModel();
@@ -62,6 +62,8 @@ public class QuestionsActivity extends AppCompatActivity {
     ImageView iv_question;
     LinearLayout layout_answer1,layout_answer2,layout_answer3,layout_answer4;
     TextView tv_question_number;
+    int liner1=0,liner2=0,liner3=0,liner4=0;
+    String language_id = "",userID="",type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +73,11 @@ public class QuestionsActivity extends AppCompatActivity {
         editor = preferences.edit();
 
         token = preferences.getString(StringConstants.prefToken,"");
-
+        language_id = preferences.getString(StringConstants.prefLanguageID, "");
+        userID = preferences.getString(StringConstants.prefUserID, "");
         categoryID = getIntent().getStringExtra("CategoryID");
         fromScreen = getIntent().getStringExtra("FromScreen");
+        type = getIntent().getStringExtra("Type");
 
         recyclerView=findViewById(R.id.recyclerview_questions);
         tv_question_number=findViewById(R.id.text_question_number);
@@ -95,21 +99,48 @@ public class QuestionsActivity extends AppCompatActivity {
         layout_answer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                liner1=1;
+                if(answer.equals("")){
+                    answer = "answer1";
+                }else {
+                    answer=answer+","+"answer1";
+                }
 
-                answer=answer+","+"answer1";
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 questionsModelList.get(position1).setUserAnswer("answer1");
                 questionsModelList.get(position1).setIsAnswered("yes");
+                if (liner2==1) {
+                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                }else {
+                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
+
+                if (liner3==1) {
+                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+
+                }else {
+                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
+                if (liner4==1) {
+                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                }else {
+                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
             }
         });
         layout_answer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                liner2=1;
 
-                answer =answer+","+"answer2";
+                if(answer.equals("")){
+                    answer = "answer2";
+                }else {
+                    answer=answer+","+"answer2";
+                }
 
                 layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
@@ -117,13 +148,34 @@ public class QuestionsActivity extends AppCompatActivity {
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 questionsModelList.get(position1).setUserAnswer("answer2");
                 questionsModelList.get(position1).setIsAnswered("yes");
+                if (liner1==1) {
+                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                }else {
+                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
+
+                if (liner3==1) {
+                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+
+                }else {
+                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
+                if (liner4==1) {
+                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                }else {
+                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
             }
         });
         layout_answer3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                answer = answer+","+"answer3";
+                liner3=1;
+                if(answer.equals("")){
+                    answer = "answer3";
+                }else {
+                    answer=answer+","+"answer3";
+                }
 
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
@@ -131,13 +183,34 @@ public class QuestionsActivity extends AppCompatActivity {
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 questionsModelList.get(position1).setUserAnswer("answer3");
                 questionsModelList.get(position1).setIsAnswered("yes");
+                if (liner2==1) {
+                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                }else {
+                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
+
+                if (liner1==1) {
+                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+
+                }else {
+                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
+                if (liner4==1) {
+                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                }else {
+                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
             }
         });
         layout_answer4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                answer =answer+","+"answer4";
+                liner4=1;
+                if(answer.equals("")){
+                    answer = "answer4";
+                }else {
+                    answer=answer+","+"answer4";
+                }
 
                 layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
                 layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
@@ -145,6 +218,23 @@ public class QuestionsActivity extends AppCompatActivity {
                 layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
                 questionsModelList.get(position1).setUserAnswer("answer4");
                 questionsModelList.get(position1).setIsAnswered("yes");
+                if (liner2==1) {
+                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                }else {
+                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
+
+                if (liner1==1) {
+                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+
+                }else {
+                    layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
+                if (liner3==1)  {
+                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                }else {
+                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                }
             }
         });
 
@@ -206,60 +296,82 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(tv_next.getText().toString().equals("NEXT")){
-                    tv_previous.setVisibility(View.VISIBLE);
-                    position1 = position1+1;
-                    if(position1<questionsModelList.size()){
-                        if(position1==questionsModelList.size()-1){
-                            tv_next.setText("SUBMIT");
-                        }
+                    if(answer.length()>0){
+                        updateAnswers();
+                    }else {
 
-                        tv_question_number.setText(String.valueOf(position1+1)+" / "+String.valueOf(questionsModelList.size()));
-                        questionsModel1 = questionsModelList.get(position1);
-                        tv_question.setText(questionsModel1.getQuestion());
-                        tv_answer1.setText(questionsModel1.getAnswer1());
-                        tv_answer2.setText(questionsModel1.getAnswer2());
-                        tv_answer3.setText(questionsModel1.getAnswer3());
-                        tv_answer4.setText(questionsModel1.getAnswer4());
-                        if(questionsModel1.getUserAnswer().equals("answer1")){
-                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                        }
-                        else if(questionsModel1.getUserAnswer().equals("answer2")){
-                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                        }
-                        else  if(questionsModel1.getUserAnswer().equals("answer3")){
-                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                        }
-                        else if(questionsModel1.getUserAnswer().equals("answer4")){
-                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
-                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                        }else {
-                            layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                            layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
-                        }
-                        Glide.with(getApplicationContext())
-                                .load(questionsModel1.getImage())
-                                .into(iv_question);
+                      /*  int incrpos=position1+1;
+                        if (questionsModelList.get(incrpos).getUseranswered().length() > 0) {
+                            position1 = position1 + 1;
+                            tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                            userAnserMethod();
+                        }*/
+                        liner1=0;
+                        liner2=0;
+                        liner3=0;
+                        liner4=0;
+                        tv_previous.setVisibility(View.GONE);
+                        position1 = position1+1;
+                        if(position1<questionsModelList.size()){
+                            if(position1==questionsModelList.size()-1){
+                                tv_next.setText("SUBMIT");
+                            }
 
+                            tv_question_number.setText(String.valueOf(position1+1)+" / "+String.valueOf(questionsModelList.size()));
+                            questionsModel1 = questionsModelList.get(position1);
+                            tv_question.setText(questionsModel1.getQuestion());
+                            tv_answer1.setText(questionsModel1.getAnswer1());
+                            tv_answer2.setText(questionsModel1.getAnswer2());
+                            tv_answer3.setText(questionsModel1.getAnswer3());
+                            tv_answer4.setText(questionsModel1.getAnswer4());
+                            if(questionsModel1.getUserAnswer().equals("answer1")){
+                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                            }
+                            else if(questionsModel1.getUserAnswer().equals("answer2")){
+                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                            }
+                            else  if(questionsModel1.getUserAnswer().equals("answer3")){
+                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                            }
+                            else if(questionsModel1.getUserAnswer().equals("answer4")){
+                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                            }else {
+                                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                            }
+                            Glide.with(getApplicationContext())
+                                    .load(questionsModel1.getImage())
+                                    .into(iv_question);
+
+                        }
                     }
+
                 }else {
-                    Intent i= new Intent(getApplicationContext(),ExamResultActivity.class);
-                    i.putExtra("questionModelList", (Serializable) questionsModelList);
-                    i.putExtra("ScreenFrom", fromScreen);
-                    i.putExtra("CategoryID", categoryID);
-                    startActivity(i);
+                    if(answer.equals("")){
+                        Intent i= new Intent(getApplicationContext(),ExamResultActivity.class);
+                        i.putExtra("questionModelList", (Serializable) questionsModelList);
+                        i.putExtra("ScreenFrom", fromScreen);
+                        i.putExtra("CategoryID", categoryID);
+                        startActivity(i);
+                    }else {
+                        questionsModel1 = questionsModelList.get(position1);
+                        updateAnswersFinalUpdate();
+                    }
+
                 }
 
             }
@@ -285,7 +397,7 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
     public void getChapters(){
-        final ProgressDialog pDialog=new ProgressDialog(QuestionsActivity.this);
+        final ProgressDialog pDialog=new ProgressDialog(ExamQuestionsActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -295,7 +407,7 @@ public class QuestionsActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         final String currentTime = df.format(Calendar.getInstance().getTime());
 
-        RequestQueue requestQueue = Volley.newRequestQueue(QuestionsActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(ExamQuestionsActivity.this);
         requestQueue.getCache().clear();
 
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl , new Response.Listener<String>() {
@@ -356,7 +468,7 @@ public class QuestionsActivity extends AppCompatActivity {
                                         tv_next.setText("SUBMIT");
                                     }
 
-                                    notificationAdapter = new ChapterAdapter(QuestionsActivity.this, questionsModelList);
+                                    notificationAdapter = new ChapterAdapter(ExamQuestionsActivity.this, questionsModelList);
                                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(
                                             getApplicationContext(),
                                             LinearLayoutManager.HORIZONTAL,
@@ -407,7 +519,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
     }
     public void getRulesQuestions(){
-        final ProgressDialog pDialog=new ProgressDialog(QuestionsActivity.this);
+        final ProgressDialog pDialog=new ProgressDialog(ExamQuestionsActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -417,7 +529,7 @@ public class QuestionsActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         final String currentTime = df.format(Calendar.getInstance().getTime());
 
-        RequestQueue requestQueue = Volley.newRequestQueue(QuestionsActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(ExamQuestionsActivity.this);
         requestQueue.getCache().clear();
 
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl , new Response.Listener<String>() {
@@ -478,7 +590,7 @@ public class QuestionsActivity extends AppCompatActivity {
                                         tv_next.setText("SUBMIT");
                                     }
 
-                                    notificationAdapter = new ChapterAdapter(QuestionsActivity.this, questionsModelList);
+                                    notificationAdapter = new ChapterAdapter(ExamQuestionsActivity.this, questionsModelList);
                                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(
                                             getApplicationContext(),
                                             LinearLayoutManager.HORIZONTAL,
@@ -529,7 +641,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
     }
     public void getPracticeQuestions(){
-        final ProgressDialog pDialog=new ProgressDialog(QuestionsActivity.this);
+        final ProgressDialog pDialog=new ProgressDialog(ExamQuestionsActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -539,7 +651,7 @@ public class QuestionsActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         final String currentTime = df.format(Calendar.getInstance().getTime());
 
-        RequestQueue requestQueue = Volley.newRequestQueue(QuestionsActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(ExamQuestionsActivity.this);
         requestQueue.getCache().clear();
 
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl , new Response.Listener<String>() {
@@ -577,6 +689,7 @@ public class QuestionsActivity extends AppCompatActivity {
                                         questionsModel.setAnswer2(jsonObject1.getString("answer2"));
                                         questionsModel.setAnswer3(jsonObject1.getString("answer3"));
                                         questionsModel.setAnswer4(jsonObject1.getString("answer4"));
+                                        questionsModel.setType(jsonObject1.getString("type"));
                                         if(jsonObject1.getString("examid")!=null){
                                             questionsModel.setExamid(jsonObject1.getString("examid"));
                                         }
@@ -604,7 +717,7 @@ public class QuestionsActivity extends AppCompatActivity {
                                     }
 
 
-                                    notificationAdapter = new ChapterAdapter(QuestionsActivity.this, questionsModelList);
+                                    notificationAdapter = new ChapterAdapter(ExamQuestionsActivity.this, questionsModelList);
                                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(
                                             getApplicationContext(),
                                             LinearLayoutManager.HORIZONTAL,
@@ -646,7 +759,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 MyData.put("method", "practice_questions_category_wise");
                 MyData.put("token", token);
                 MyData.put("category_id", categoryID);
-                MyData.put("reg_datetime", currentDate+" "+currentTime);
+                //MyData.put("reg_datetime", currentDate+" "+currentTime);
                 Log.i("practice_questions_c",MyData.toString());
                 return MyData;
             }
@@ -656,7 +769,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
     }
     public void getTheroyQuestions(){
-        final ProgressDialog pDialog=new ProgressDialog(QuestionsActivity.this);
+        final ProgressDialog pDialog=new ProgressDialog(ExamQuestionsActivity.this);
         pDialog.setMessage("Getting Details..");
         pDialog.setCancelable(false);
         pDialog.setTitle("");
@@ -666,7 +779,7 @@ public class QuestionsActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         final String currentTime = df.format(Calendar.getInstance().getTime());
 
-        RequestQueue requestQueue = Volley.newRequestQueue(QuestionsActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(ExamQuestionsActivity.this);
         requestQueue.getCache().clear();
 
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl , new Response.Listener<String>() {
@@ -729,7 +842,7 @@ public class QuestionsActivity extends AppCompatActivity {
                                     }
 
 
-                                    notificationAdapter = new ChapterAdapter(QuestionsActivity.this, questionsModelList);
+                                    notificationAdapter = new ChapterAdapter(ExamQuestionsActivity.this, questionsModelList);
                                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(
                                             getApplicationContext(),
                                             LinearLayoutManager.HORIZONTAL,
@@ -780,7 +893,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
     }
     public void showAlertDialog(String message){
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(QuestionsActivity.this);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ExamQuestionsActivity.this);
         alertDialogBuilder.setMessage(message);
         alertDialogBuilder.setTitle("Auto Therie neu");
         alertDialogBuilder.setCancelable(false);
@@ -817,16 +930,16 @@ public class QuestionsActivity extends AppCompatActivity {
         }
         @NonNull
         @Override
-        public ChapterAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_questions_row, parent, false);
 
-            return new ChapterAdapter.MyViewHolder(itemView);
+            return new MyViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final ChapterAdapter.MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
             final QuestionsModel questionsModel = questionsModelList.get(position);
             holder.tv_question.setText(questionsModel.getQuestion());
             holder.tv_answer1.setText(questionsModel.getAnswer1());
@@ -955,6 +1068,288 @@ public class QuestionsActivity extends AppCompatActivity {
         }
 
     }
+    public void updateAnswers() {
+        final ProgressDialog pDialog = new ProgressDialog(ExamQuestionsActivity.this);
+        pDialog.setMessage("Updating..");
+        pDialog.setCancelable(false);
+        pDialog.setTitle("");
+        pDialog.show();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        final String currentDate = sdf.format(new Date());
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        final String currentTime = df.format(Calendar.getInstance().getTime());
+
+        RequestQueue requestQueue = Volley.newRequestQueue(ExamQuestionsActivity.this);
+        requestQueue.getCache().clear();
+
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+                Log.d("Response", response);
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response.trim());
+                    if (jsonObject.has("response")) {
+
+                        JSONArray responseArray = jsonObject.getJSONArray("response");
+
+                        if (responseArray.length() > 0) {
+                            JSONObject object = responseArray.getJSONObject(0);
+                            if (object.has("status")) {
+                                String status = object.getString("status");
+                                if (status.equals("success")) {
+                                    liner1=0;
+                                    liner2=0;
+                                    liner3=0;
+                                    liner4=0;
+                                    position1 =position1+1;
+                                    answer="";
+                                    if (position1 < questionsModelList.size()) {
+                                        if (position1 == questionsModelList.size() - 1) {
+                                            tv_next.setText("SUBMIT");
+                                        }
+
+                                        tv_question_number.setText(String.valueOf(position1 + 1) + " / " + String.valueOf(questionsModelList.size()));
+                                        questionsModel1 = questionsModelList.get(position1);
+                                        questionsModel1.setTotalNoOfQuestions(String.valueOf(questionsModelList.size()));
+                                        questionsModel1.setBlockID(questionsModel1.getCategoryID());
+                                        questionsModel1.setQuestionID(questionsModel1.getId());
+                                        questionsModel1.setCategoryType(type);
+                                        tv_question.setText(questionsModel1.getQuestion());
+                                        tv_answer1.setText(questionsModel1.getAnswer1());
+                                        tv_answer2.setText(questionsModel1.getAnswer2());
+                                        tv_answer3.setText(questionsModel1.getAnswer3());
+                                        tv_answer4.setText(questionsModel1.getAnswer4());
+                                        layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                                        Glide.with(getApplicationContext())
+                                                .load(questionsModel1.getImage())
+                                                .into(iv_question);
 
 
+                                    }
+                                } else {
+                                    showAlertDialog(object.getString("message"));
+                                }
+                            } else {
+                                showAlertDialog(object.getString("message"));
+                            }
+                        }
+
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if (pDialog.isShowing()) {
+                    pDialog.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //This code is executed if there is an error.
+                pDialog.dismiss();
+                String errorMessage = StringConstants.ErrorMessage(error);
+
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("method", "result");
+                MyData.put("token", token);
+                MyData.put("type",questionsModel1.getType());
+                MyData.put("examid", questionsModel1.getExamid());
+                MyData.put("language_id", language_id);
+                MyData.put("user_id", userID);
+                MyData.put("question_id", questionsModel1.getId());
+                //  MyData.put("answer", questionsModel1.getUserAnswer());
+                MyData.put("answer", answer);
+                MyData.put("datetime", currentDate + " " + currentTime);
+                Log.i("ResulrtExam", MyData.toString());
+                return MyData;
+            }
+        };
+
+        requestQueue.add(MyStringRequest);
+
+    }
+    public void userAnserMethod() {
+        String userAnswered = questionsModelList.get(position1).getUseranswered();
+        String correctAnswer = questionsModelList.get(position1).getCorrectAnswer();
+        if (userAnswered.length() > 0) {
+            Log.i("djbdjfbdfd", userAnswered);
+            if (questionsModelList.get(position1).getUseranswered().equals("answer1")) {
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer2")) {
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer3")) {
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer4")) {
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer1,answer2")||questionsModelList.get(position1).getUseranswered().equals("answer2,answer1")) {
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+            }
+
+            if (questionsModelList.get(position1).getCorrectAnswer().equals("answer1,answer3")||questionsModelList.get(position1).getUseranswered().equals("answer3,answer1")) {
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+            }
+            if (questionsModelList.get(position1).getUseranswered().equals("answer1,answer4")||questionsModelList.get(position1).getUseranswered().equals("answer4,answer1")) {
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+            } if (questionsModelList.get(position1).getUseranswered().equals("answer2,answer3")||questionsModelList.get(position1).getUseranswered().equals("answer3,answer2")) {
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+            } if (questionsModelList.get(position1).getUseranswered().equals("answer2,answer4")||questionsModelList.get(position1).getUseranswered().equals("answer4,answer2")) {
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+            } if (questionsModelList.get(position1).getUseranswered().equals("answer3,answer2")||questionsModelList.get(position1).getUseranswered().equals("answer3,answer2")) {
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.groupbox));
+            } if (questionsModelList.get(position1).getUseranswered().equals("answer3,answer4")||questionsModelList.get(position1).getUseranswered().equals("answer4,answer3")) {
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+            }if (questionsModelList.get(position1).getUseranswered().equals("answer4,answer2")||questionsModelList.get(position1).getUseranswered().equals("answer2,answer4")) {
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+            }if (questionsModelList.get(position1).getUseranswered().equals("answer4,answer3")||questionsModelList.get(position1).getUseranswered().equals("answer3,answer4")) {
+                layout_answer2.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+                layout_answer1.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer3.setBackground(getResources().getDrawable(R.drawable.groupbox));
+                layout_answer4.setBackground(getResources().getDrawable(R.drawable.bbbbbb));
+            }
+
+        }
+
+
+    }
+    public void updateAnswersFinalUpdate() {
+        final ProgressDialog pDialog = new ProgressDialog(ExamQuestionsActivity.this);
+        pDialog.setMessage("Updating..");
+        pDialog.setCancelable(false);
+        pDialog.setTitle("");
+        pDialog.show();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        final String currentDate = sdf.format(new Date());
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        final String currentTime = df.format(Calendar.getInstance().getTime());
+
+        RequestQueue requestQueue = Volley.newRequestQueue(ExamQuestionsActivity.this);
+        requestQueue.getCache().clear();
+
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, StringConstants.mainUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+                Log.d("Response", response);
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response.trim());
+                    if (jsonObject.has("response")) {
+
+                        JSONArray responseArray = jsonObject.getJSONArray("response");
+
+                        if (responseArray.length() > 0) {
+                            JSONObject object = responseArray.getJSONObject(0);
+                            if (object.has("status")) {
+                                String status = object.getString("status");
+                                if (status.equals("success")) {
+                                    Intent i= new Intent(getApplicationContext(),ExamResultActivity.class);
+                                    i.putExtra("questionModelList", (Serializable) questionsModelList);
+                                    i.putExtra("ScreenFrom", fromScreen);
+                                    i.putExtra("CategoryID", categoryID);
+                                    startActivity(i);
+                                    startActivity(i);
+
+                                } else {
+                                    showAlertDialog(object.getString("message"));
+                                }
+                            } else {
+                                showAlertDialog(object.getString("message"));
+                            }
+                        }
+
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if (pDialog.isShowing()) {
+                    pDialog.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //This code is executed if there is an error.
+                pDialog.dismiss();
+                String errorMessage = StringConstants.ErrorMessage(error);
+
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("method", "result");
+                MyData.put("token", token);
+                MyData.put("type",questionsModel1.getType());
+                MyData.put("examid", questionsModel1.getExamid());
+                MyData.put("language_id", language_id);
+                MyData.put("user_id", userID);
+                MyData.put("question_id", questionsModel1.getId());
+                //  MyData.put("answer", questionsModel1.getUserAnswer());
+                MyData.put("answer", answer);
+                MyData.put("datetime", currentDate + " " + currentTime);
+                Log.i("ResulrtExam", MyData.toString());
+                return MyData;
+            }
+        };
+
+        requestQueue.add(MyStringRequest);
+
+    }
 }

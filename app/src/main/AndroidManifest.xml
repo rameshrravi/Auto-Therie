@@ -13,11 +13,27 @@
         <activity
             android:name=".LearningBlocksActivity"
             android:exported="false"
-            android:theme="@style/AppTheme."/>
+            android:theme="@style/AppTheme." />
+        <activity
+            android:name=".AfterLearingResultActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme." />
+        <activity
+            android:name=".PartiallyQueActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme." />
+        <activity
+            android:name=".WrongActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme." />
+        <activity
+            android:name=".AnswerActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme." />
         <activity
             android:name=".LearningNewActivity"
             android:exported="false"
-            android:theme="@style/AppTheme."/>
+            android:theme="@style/AppTheme." />
         <activity
             android:name=".SignalDescriptionActivity"
             android:exported="false"
@@ -179,6 +195,14 @@
             android:theme="@style/AppTheme." />
         <activity
             android:name=".HomeActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme." />
+        <activity
+            android:name=".ExamResultActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme." />
+        <activity
+            android:name=".ExamQuestionsActivity"
             android:exported="false"
             android:theme="@style/AppTheme." />
         <activity
