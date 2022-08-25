@@ -13,6 +13,8 @@
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_home_germen.xml" value="0.20416666666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_home_italian.xml" value="0.20416666666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_homepage.xml" value="0.25" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_homepage_french.xml" value="0.18854166666666666" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_homepage_german.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_homepage_italian.xml" value="0.20416666666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning.xml" value="0.20416666666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_learning_blocks.xml" value="0.25" />
@@ -32,6 +34,9 @@
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_theory_questions1.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/activity_wrong.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/app_bar_homepage.xml" value="0.1828125" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/app_bar_homepage_french.xml" value="0.18854166666666666" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/app_bar_homepage_german.xml" value="0.18854166666666666" />
+        <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/app_bar_homepage_italian.xml" value="0.1824074074074074" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_chapter_row.xml" value="0.14479166666666668" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_easy_car_theories_row.xml" value="0.18854166666666666" />
         <entry key="..\:/Raj/AutoTherieneu/app/src/main/res/layout/layout_easy_theory_description_row.xml" value="0.33" />

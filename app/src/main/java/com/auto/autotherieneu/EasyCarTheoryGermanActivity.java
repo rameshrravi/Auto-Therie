@@ -213,12 +213,28 @@ public class EasyCarTheoryGermanActivity extends AppCompatActivity {
                         i.putExtra("FromScreen","EasyCarTheory");
                         context.startActivity(i);
                     }else {
-                        Intent i = new Intent(context, TheoryQuestions1Activity.class);
+                        if(chapterModel.getChapterName().equalsIgnoreCase("Verkehrskontrolle")){
+                            Intent i = new Intent(context,TheoryTrafficActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.putExtra("CategoryID",chapterModel.getId());
+                            i.putExtra("CategoryName",chapterModel.getChapterName());
+                            i.putExtra("CategoryNameLang","Traffic control");
+                            i.putExtra("FromScreen","EasyCarTheory");
+                            context.startActivity(i);
+                        }else {
+                            Intent i = new Intent(context,TheoryQuestions1Activity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.putExtra("CategoryID",chapterModel.getId());
+                            i.putExtra("CategoryName",chapterModel.getChapterName());
+                            i.putExtra("FromScreen","EasyCarTheory");
+                            context.startActivity(i);
+                        }
+                       /* Intent i = new Intent(context, TheoryQuestions1Activity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         i.putExtra("CategoryID", chapterModel.getId());
                         i.putExtra("CategoryName", chapterModel.getChapterName());
                         i.putExtra("FromScreen", "EasyCarTheory");
-                        context.startActivity(i);
+                        context.startActivity(i);*/
                     }
                 }
             });

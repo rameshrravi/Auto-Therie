@@ -20,4 +20,9 @@
     <string name="give_italins">Dare due risposte</string>
     <string name="give_franc">Donner deux réponses</string>
     <string name="give_detus">Geben sie zwei Antworten</string>
+    <string name="appname_english">Auto Therie neu</string>
+    <string name="appname_franch">Theorie de la voiture nouvelle</string>
+    <string name="appname_detuch">Autotheorie neu</string>
+    <string name="appname_talin">Theoria dell\'auto nuova</string>
+
 </resources>

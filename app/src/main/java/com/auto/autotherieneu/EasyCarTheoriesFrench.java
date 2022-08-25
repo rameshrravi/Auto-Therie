@@ -216,6 +216,8 @@ public class EasyCarTheoriesFrench extends AppCompatActivity {
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         i.putExtra("CategoryID", chapterModel.getId());
                         i.putExtra("CategoryName", chapterModel.getChapterName());
+                        i.putExtra("CategoryNameLang","contrôle de la circulation");
+
                         i.putExtra("FromScreen", "EasyCarTheory");
                         context.startActivity(i);
                     }

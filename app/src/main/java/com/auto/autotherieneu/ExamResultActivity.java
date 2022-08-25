@@ -253,6 +253,20 @@ public class ExamResultActivity extends AppCompatActivity {
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    } public void showAlertDialog(String title,String message) {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ExamResultActivity.this);
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setTitle(title);
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        arg0.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.MyViewHolder> {
@@ -428,6 +442,17 @@ public class ExamResultActivity extends AppCompatActivity {
                                     tv_correct_answer.setText(correct_answer);
                                     tv_answered_questions.setText(attend_questions);
                                     tv_incorrect_answer.setText(wrong_answer);
+                                   String apptitle=getResources().getString(R.string.appname_english);
+                                    if(language_id.equals("1")){
+                                         apptitle=getResources().getString(R.string.appname_detuch);
+                                    }else if(language_id.equals("2")){
+                                         apptitle=getResources().getString(R.string.appname_franch);
+                                    }else if(language_id.equals("3")){
+                                         apptitle=getResources().getString(R.string.appname_english);
+                                    }else if(language_id.equals("4")){
+                                         apptitle=getResources().getString(R.string.appname_talin);
+                                    }
+                                    showAlertDialog(apptitle,object.getString("result"));
                                 } else {
                                     showAlertDialog(object.getString("message"));
                                 }

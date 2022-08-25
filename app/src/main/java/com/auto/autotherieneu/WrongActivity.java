@@ -193,22 +193,6 @@ public class WrongActivity extends AppCompatActivity {
                     answer = answer + "," + "answer2";
                 }
 
-              /*  if(questionsModelList.get(position1).getCorrectAnswer().equals("answer2")){
-                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                }
-                else {
-                    layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_red));
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer1")){
-                        layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                    }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer3")){
-                        layout_answer3.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                    }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer4")){
-                        layout_answer4.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                    }
-
-                }*/
                 liner2=1;
                 if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
                     if (answer.split(",").length == 2) {
@@ -285,22 +269,6 @@ public class WrongActivity extends AppCompatActivity {
                 }else {
                     answer = answer + "," + "answer3";
                 }
-                /*if(questionsModelList.get(position1).getCorrectAnswer().equals("answer3")){
-                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                }
-                else {
-                    layout_answer3.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_red));
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer2")){
-                        layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                    }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer1")){
-                        layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                    }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer4")){
-                        layout_answer4.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                    }
-
-                }*/
 
                 liner3=1;
                 if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
@@ -382,25 +350,6 @@ public class WrongActivity extends AppCompatActivity {
                 }else {
                     answer = answer + "," + "answer4";
                 }
-
-
-
-               /* if(questionsModelList.get(position1).getCorrectAnswer().equals("answer4")){
-                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                }
-                else {
-                    layout_answer4.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_red));
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer2")){
-                        layout_answer2.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                    }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer3")){
-                        layout_answer3.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                    }
-                    if(questionsModelList.get(position1).getCorrectAnswer().equals("answer1")){
-                        layout_answer1.setBackground(getResources().getDrawable(R.drawable.rounded_cornered_edittext_color_green));
-                    }
-
-                }*/
                 liner4 = 1;
                 if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
                     if (answer.split(",").length == 2) {
@@ -623,7 +572,35 @@ public class WrongActivity extends AppCompatActivity {
 
 
                 } else {
-                    if(answer.equals("")){
+                    if (questionsModelList.get(position1).getCorrectAnswer().split(",").length == 2) {
+                        if (answer.split(",").length == 2) {
+                            if(answer.equals("")){
+                                Intent i = new Intent(getApplicationContext(), AfterLearingResultActivity.class);
+                                i.putExtra("questionModelList", (Serializable) questionsModelList);
+                                i.putExtra("ScreenFrom", fromScreen);
+                                i.putExtra("CategoryID", categoryID);
+                                i.putExtra("blockID", CategoryIDD);
+                                i.putExtra("type", type);
+                                startActivity(i);
+                            }else {
+                                questionsModel1 = questionsModelList.get(position1);
+                                updateAnswersFinalUpdate();
+                            }
+                        }else {
+                            String landtring=getString(R.string.give_to_answer);
+                            if(language_id.equals("1")){
+                                landtring=getString(R.string.give_detus);
+                            }else if(language_id.equals("2")){
+                                landtring=getString(R.string.give_franc);
+                            }else if(language_id.equals("3")){
+                                landtring=getString(R.string.give_to_answer);
+                            }else if(language_id.equals("4")){
+                                landtring=getString(R.string.give_italins);
+                            }
+                            showAlertDialog(landtring);
+
+                        }
+                    }else {
                         Intent i = new Intent(getApplicationContext(), AfterLearingResultActivity.class);
                         i.putExtra("questionModelList", (Serializable) questionsModelList);
                         i.putExtra("ScreenFrom", fromScreen);
@@ -631,10 +608,8 @@ public class WrongActivity extends AppCompatActivity {
                         i.putExtra("blockID", CategoryIDD);
                         i.putExtra("type", type);
                         startActivity(i);
-                    }else {
-                        questionsModel1 = questionsModelList.get(position1);
-                        updateAnswersFinalUpdate();
                     }
+
 
 
                 }

@@ -310,6 +310,7 @@ public class HomeFragmentItalian extends Fragment {
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.putExtra("CategoryID",chapterModel.getId());
                     i.putExtra("CategoryName",chapterModel.getChapterName());
+                    i.putExtra("CategoryNameLang","controllo del traffico");
                     i.putExtra("FromScreen","Learning");
                     context.startActivity(i);
                 }
